@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export default function ProfilePage({ currentPage, setCurrentPage }) {
+export default function ProgressPage({ currentPage, setCurrentPage }) {
     return (
         <div style={{
             minHeight: '100vh',
@@ -44,10 +44,10 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                         fontWeight: '600',
                         marginLeft: '16px',
                         color: '#1e293b'
-                    }}>Profile</h1>
+                    }}>Progress</h1>
                 </header>
 
-                {/* Profile Content */}
+                {/* Progress Content */}
                 <main className="w-full">
                     <div style={{
                         backgroundColor: 'white',
@@ -57,15 +57,15 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                         marginBottom: '24px'
                     }}>
                         <h2 style={{fontSize: '20px', fontWeight: '600', marginBottom: '16px', color: '#1e293b'}}>
-                            User Profile
+                            Your Progress
                         </h2>
                         <p style={{color: '#64748b', lineHeight: '1.6'}}>
-                            Manage your personal information, basketball preferences, goals, and account settings. 
-                            Customize your Sportify experience to match your playing style.
+                            Track your basketball improvement over time. View your stats, achievements, 
+                            and see how you're progressing towards your goals.
                         </p>
                     </div>
 
-                    {/* Profile Settings Placeholder */}
+                    {/* Progress Charts Placeholder */}
                     <div style={{
                         backgroundColor: 'white',
                         borderRadius: '16px',
@@ -78,7 +78,7 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                         justifyContent: 'center'
                     }}>
                         <p style={{color: '#94a3b8', fontSize: '16px'}}>
-                            Profile settings and personal information will be displayed here
+                            Progress charts and analytics will be displayed here
                         </p>
                     </div>
                 </main>
@@ -116,7 +116,7 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            color: item.label === 'Profile' ? '#1e293b' : '#64748b',
+                            color: item.label === 'Progress' ? '#1e293b' : '#64748b',
                             border: 'none',
                             backgroundColor: 'transparent',
                             cursor: 'pointer',
@@ -126,12 +126,12 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                             maxWidth: item.label === 'Progress' ? '90px' : '60px'
                         }}
                         onMouseEnter={(e) => {
-                            if (item.label !== 'Profile') {
+                            if (item.label !== 'Progress') {
                                 e.target.style.color = '#1e293b';
                             }
                         }}
                         onMouseLeave={(e) => {
-                            if (item.label !== 'Profile') {
+                            if (item.label !== 'Progress') {
                                 e.target.style.color = '#64748b';
                             }
                         }}

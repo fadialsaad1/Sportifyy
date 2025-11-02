@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export default function ProfilePage({ currentPage, setCurrentPage }) {
+export default function PracticePage({ currentPage, setCurrentPage }) {
     return (
         <div style={{
             minHeight: '100vh',
@@ -44,10 +44,10 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                         fontWeight: '600',
                         marginLeft: '16px',
                         color: '#1e293b'
-                    }}>Profile</h1>
+                    }}>Practice</h1>
                 </header>
 
-                {/* Profile Content */}
+                {/* Practice Content */}
                 <main className="w-full">
                     <div style={{
                         backgroundColor: 'white',
@@ -57,15 +57,15 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                         marginBottom: '24px'
                     }}>
                         <h2 style={{fontSize: '20px', fontWeight: '600', marginBottom: '16px', color: '#1e293b'}}>
-                            User Profile
+                            Practice Routines
                         </h2>
                         <p style={{color: '#64748b', lineHeight: '1.6'}}>
-                            Manage your personal information, basketball preferences, goals, and account settings. 
-                            Customize your Sportify experience to match your playing style.
+                            Access your basketball training routines, drills, and practice sessions. 
+                            Start a new practice or continue with your scheduled workouts.
                         </p>
                     </div>
 
-                    {/* Profile Settings Placeholder */}
+                    {/* Practice Routines Placeholder */}
                     <div style={{
                         backgroundColor: 'white',
                         borderRadius: '16px',
@@ -78,7 +78,7 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                         justifyContent: 'center'
                     }}>
                         <p style={{color: '#94a3b8', fontSize: '16px'}}>
-                            Profile settings and personal information will be displayed here
+                            Practice routines and drills will be displayed here
                         </p>
                     </div>
                 </main>
@@ -116,7 +116,7 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            color: item.label === 'Profile' ? '#1e293b' : '#64748b',
+                            color: item.label === 'Practice' ? '#1e293b' : '#64748b',
                             border: 'none',
                             backgroundColor: 'transparent',
                             cursor: 'pointer',
@@ -126,12 +126,12 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                             maxWidth: item.label === 'Progress' ? '90px' : '60px'
                         }}
                         onMouseEnter={(e) => {
-                            if (item.label !== 'Profile') {
+                            if (item.label !== 'Practice') {
                                 e.target.style.color = '#1e293b';
                             }
                         }}
                         onMouseLeave={(e) => {
-                            if (item.label !== 'Profile') {
+                            if (item.label !== 'Practice') {
                                 e.target.style.color = '#64748b';
                             }
                         }}

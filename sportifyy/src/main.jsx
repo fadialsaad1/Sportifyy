@@ -1,11 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import ProfilePage from "./Profile";
+import App from "./App";
 import "./index.css"; // <-- make sure Tailwind is imported
-
-function App() {
-    return <ProfilePage />;
-}
 
 // Mount the React app into the DOM (Vite loads this file as a module from index.html)
 const container = document.getElementById("root");
