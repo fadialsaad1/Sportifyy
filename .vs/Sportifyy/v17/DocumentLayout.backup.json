@@ -1,0 +1,160 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportifyy\\new folder\\sportifyy\\src\\profile.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\profile.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportifyy\\new folder\\sportifyy\\src\\progress.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\progress.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportifyy\\new folder\\sportifyy\\src\\practice.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\practice.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportifyy\\new folder\\sportifyy\\src\\tailwind.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\tailwind.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportifyy\\new folder\\sportifyy\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportifyy\\new folder\\sportifyy\\src\\home.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\home.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportifyy\\new folder\\sportifyy\\src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportifyy\\new folder\\sportifyy\\src\\main.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\main.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "App.jsx",
+              "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\App.jsx",
+              "RelativeDocumentMoniker": "sportifyy\\src\\App.jsx",
+              "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\App.jsx",
+              "RelativeToolTip": "sportifyy\\src\\App.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-03T00:35:28.952Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Home.jsx",
+              "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\Home.jsx",
+              "RelativeDocumentMoniker": "sportifyy\\src\\Home.jsx",
+              "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\Home.jsx",
+              "RelativeToolTip": "sportifyy\\src\\Home.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-03T00:35:09.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "index.css",
+              "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\index.css",
+              "RelativeDocumentMoniker": "sportifyy\\src\\index.css",
+              "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\index.css",
+              "RelativeToolTip": "sportifyy\\src\\index.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-03T00:35:04.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "main.jsx",
+              "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\main.jsx",
+              "RelativeDocumentMoniker": "sportifyy\\src\\main.jsx",
+              "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\main.jsx",
+              "RelativeToolTip": "sportifyy\\src\\main.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-03T00:34:54.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "tailwind.config.js",
+              "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\tailwind.config.js",
+              "RelativeDocumentMoniker": "sportifyy\\src\\tailwind.config.js",
+              "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\tailwind.config.js",
+              "RelativeToolTip": "sportifyy\\src\\tailwind.config.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-11-03T00:34:36.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Practice.jsx",
+              "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\Practice.jsx",
+              "RelativeDocumentMoniker": "sportifyy\\src\\Practice.jsx",
+              "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\Practice.jsx",
+              "RelativeToolTip": "sportifyy\\src\\Practice.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-03T00:34:01.235Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Progress.jsx",
+              "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\Progress.jsx",
+              "RelativeDocumentMoniker": "sportifyy\\src\\Progress.jsx",
+              "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\Progress.jsx",
+              "RelativeToolTip": "sportifyy\\src\\Progress.jsx",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAQwI8AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-03T00:32:41.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Profile.jsx",
+              "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\Profile.jsx",
+              "RelativeDocumentMoniker": "sportifyy\\src\\Profile.jsx",
+              "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportifyy\\New folder\\sportifyy\\src\\Profile.jsx",
+              "RelativeToolTip": "sportifyy\\src\\Profile.jsx",
+              "ViewState": "AgIAACkBAAAAAAAAAAAiwFMBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-11-03T00:32:02.654Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
