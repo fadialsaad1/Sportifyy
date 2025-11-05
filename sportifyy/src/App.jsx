@@ -3,6 +3,8 @@ import HomePage from "./Home";
 import ProgressPage from "./Progress";
 import PracticePage from "./Practice";
 import ProfilePage from "./Profile";
+import UploadPage from "./UploadPage";
+import Login from "./Login";
 
 export default function App() {
     const [currentPage, setCurrentPage] = useState('Home');
@@ -17,6 +19,10 @@ export default function App() {
                 return <PracticePage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
             case 'Profile':
                 return <ProfilePage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+            case 'Upload':
+                return <UploadPage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+            case "Sign in":
+                return <Login currentPage={currentPage} setCurrentPage={setCurrentPage} />;
             default:
                 return <HomePage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
         }

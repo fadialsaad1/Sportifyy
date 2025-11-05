@@ -305,6 +305,7 @@ Generated on: ${new Date().toLocaleString()}
                     { img: "/progress_icon.png", label: "Progress" },
                     { img: "/routine_icon.png", label: "Practice" },
                     { img: "/settings_icon.png", label: "Profile" },
+                    { img: "/signin.jpg", label: "Sign in"}
                 ].map((item, i) => (
                     <button
                         key={i}

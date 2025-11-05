@@ -1,2 +1,4 @@
 C:\Users\fadif\source\repos\Sportifyy\Sportifyy\obj\Debug\sportifyy.esproj.CoreCompileInputs.cache
 C:\Users\fadif\source\repos\Sportifyy\New folder\Sportifyy\obj\Debug\sportifyy.esproj.CoreCompileInputs.cache
+C:\Users\fadif\source\repos\New folder (3)\Sportifyy\obj\Debug\sportifyy.esproj.CoreCompileInputs.cache
+C:\Users\fadif\source\repos\Sportify\Sportifyy\obj\Debug\sportifyy.esproj.CoreCompileInputs.cache

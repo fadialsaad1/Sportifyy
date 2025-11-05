@@ -363,6 +363,7 @@ export default function HomePage({ currentPage, setCurrentPage }) {
                     { img: '/progress_icon.png', label: 'Progress' },
                     { img: '/routine_icon.png', label: 'Practice' },
                     { img: '/settings_icon.png', label: 'Profile' },
+                    { img: '/upload_icon.png', label: 'Upload' },
                 ].map((item, i) => (
                     <button 
                         key={i} 
