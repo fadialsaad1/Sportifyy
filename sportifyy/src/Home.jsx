@@ -19,6 +19,15 @@ const StatCard = ({ title, value, subtitle, color = 'sky' }) => (
 
 export default function HomePage({ currentPage, setCurrentPage }) {
     const [selectedDay, setSelectedDay] = useState(1); // Monday is selected by default (index 1)
+    const [showVideoPlayer, setShowVideoPlayer] = useState(false);
+    
+    const handlePlayVideo = () => {
+        setShowVideoPlayer(true);
+    };
+    
+    const handleCloseVideo = () => {
+        setShowVideoPlayer(false);
+    };
     
     return (
         <div style={{
@@ -44,7 +53,16 @@ export default function HomePage({ currentPage, setCurrentPage }) {
                 }}
             >
                 <img src="/notification_icon.png" alt="Notifications" style={{width: '88px', height: '88px'}} />
-                <img src="/plus_button_icon.png" alt="Add" style={{width: '88px', height: '88px'}} />
+                <img 
+                    src="/plus_button_icon.png" 
+                    alt="Add" 
+                    style={{
+                        width: '88px', 
+                        height: '88px',
+                        cursor: 'pointer'
+                    }}
+                    onClick={() => setCurrentPage('Upload')}
+                />
             </div>
 
             {/* Content container */}
@@ -263,17 +281,30 @@ export default function HomePage({ currentPage, setCurrentPage }) {
                 marginBottom: '24px'
             }}>
                 <h4 style={{fontSize: '14px', color: '#64748b', marginBottom: '10px'}}>Last Practice</h4>
-                <div style={{
-                    backgroundColor: '#dcfce7',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                    border: '1px solid #bbf7d0',
-                    padding: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    maxWidth: '500px'
-                }}>
+                <div 
+                    style={{
+                        backgroundColor: '#dcfce7',
+                        borderRadius: '12px',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                        border: '1px solid #bbf7d0',
+                        padding: '16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '16px',
+                        maxWidth: '500px',
+                        cursor: 'pointer',
+                        transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                    }}
+                    onClick={handlePlayVideo}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(0px)';
+                        e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+                    }}
+                >
                     {/* Small video thumbnail on the left */}
                     <div style={{
                         position: 'relative',
@@ -363,7 +394,6 @@ export default function HomePage({ currentPage, setCurrentPage }) {
                     { img: '/progress_icon.png', label: 'Progress' },
                     { img: '/routine_icon.png', label: 'Practice' },
                     { img: '/settings_icon.png', label: 'Profile' },
-                    { img: '/upload_icon.png', label: 'Upload' },
                 ].map((item, i) => (
                     <button 
                         key={i} 
@@ -394,11 +424,93 @@ export default function HomePage({ currentPage, setCurrentPage }) {
                             setCurrentPage(item.label);
                         }}
                     >
-                        <img src={item.img} alt={item.label} style={{width: '24px', height: '24px', marginBottom: '4px'}} />
+                        <img 
+                            src={item.img} 
+                            alt={item.label} 
+                            style={{
+                                width: item.label === 'Progress' ? '42px' : '24px', 
+                                height: '24px', 
+                                marginBottom: '4px'
+                            }} 
+                        />
                         <span style={{fontSize: '12px', textAlign: 'center', wordWrap: 'break-word'}}>{item.label}</span>
                     </button>
                 ))}
             </div>
+
+            {/* Video Player Modal */}
+            {showVideoPlayer && (
+                <div 
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 2000,
+                        padding: '20px'
+                    }}
+                    onClick={handleCloseVideo}
+                >
+                    <div 
+                        style={{
+                            position: 'relative',
+                            maxWidth: '90vw',
+                            maxHeight: '90vh',
+                            backgroundColor: '#000',
+                            borderRadius: '12px',
+                            overflow: 'hidden'
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Close button */}
+                        <button
+                            onClick={handleCloseVideo}
+                            style={{
+                                position: 'absolute',
+                                top: '10px',
+                                right: '10px',
+                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: '40px',
+                                height: '40px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '20px',
+                                fontWeight: 'bold',
+                                color: '#1e293b',
+                                zIndex: 2001
+                            }}
+                        >
+                            ×
+                        </button>
+                        
+                        {/* Video Player */}
+                        <video 
+                            width="100%" 
+                            height="auto" 
+                            controls 
+                            autoPlay
+                            style={{
+                                maxWidth: '800px',
+                                maxHeight: '600px',
+                                borderRadius: '12px'
+                            }}
+                        >
+                            <source src="/basketballshot_video.mp4" type="video/mp4" />
+                            <source src="/basketballshot_video.webm" type="video/webm" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

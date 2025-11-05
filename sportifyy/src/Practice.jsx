@@ -26,7 +26,16 @@ export default function PracticePage({ currentPage, setCurrentPage }) {
                 }}
             >
                 <img src="/notification_icon.png" alt="Notifications" style={{width: '88px', height: '88px'}} />
-                <img src="/plus_button_icon.png" alt="Add" style={{width: '88px', height: '88px'}} />
+                <img 
+                    src="/plus_button_icon.png" 
+                    alt="Add" 
+                    style={{
+                        width: '88px', 
+                        height: '88px',
+                        cursor: 'pointer'
+                    }}
+                    onClick={() => setCurrentPage('Upload')}
+                />
             </div>
 
             {/* Content container */}
@@ -139,7 +148,15 @@ export default function PracticePage({ currentPage, setCurrentPage }) {
                             setCurrentPage(item.label);
                         }}
                     >
-                        <img src={item.img} alt={item.label} style={{width: '24px', height: '24px', marginBottom: '4px'}} />
+                        <img 
+                            src={item.img} 
+                            alt={item.label} 
+                            style={{
+                                width: item.label === 'Progress' ? '32px' : '24px', 
+                                height: '24px', 
+                                marginBottom: '4px'
+                            }} 
+                        />
                         <span style={{fontSize: '12px', textAlign: 'center', wordWrap: 'break-word'}}>{item.label}</span>
                     </button>
                 ))}
