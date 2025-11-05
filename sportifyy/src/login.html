@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportifyy | Account Creation & Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f4c75, #3282b8, #bbe1fa);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .welcome-section {
+            flex: 1;
+            background: linear-gradient(135deg, #0f4c75, #3282b8);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><polygon points="50,0 100,100 0,100" fill="white"/></svg>');
+            background-size: 200px;
+        }
+
+        .welcome-section h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #bbe1fa;
+            position: relative;
+        }
+
+        .welcome-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .sports-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .sports-icons i {
+            font-size: 24px;
+            background: rgba(187, 225, 250, 0.2);
+            padding: 10px;
+            border-radius: 50%;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .sports-icons i:hover {
+            transform: translateY(-5px);
+            background: rgba(187, 225, 250, 0.4);
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+
+        .form-container {
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .form-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0f4c75;
+        }
+
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #3282b8;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(50, 130, 184, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .name-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .name-group .form-group {
+            flex: 1;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0f4c75, #3282b8);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(50, 130, 184, 0.4);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .toggle-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .toggle-link {
+            color: #3282b8;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .toggle-link:hover {
+            color: #0f4c75;
+            text-decoration: underline;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.3s;
+        }
+
+        .password-toggle:hover {
+            color: #3282b8;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .form-switch {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-switch-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 10px 25px;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .form-switch-btn.active {
+            background: linear-gradient(135deg, #0f4c75, #3282b8);
+            color: white;
+            box-shadow: 0 4px 15px rgba(50, 130, 184, 0.3);
+        }
+
+        .form-switch-btn:not(.active):hover {
+            color: #3282b8;
+            background: rgba(50, 130, 184, 0.1);
+        }
+
+        .brand-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #bbe1fa;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .welcome-section {
+                padding: 30px 20px;
+                text-align: center;
+            }
+            
+            .form-section {
+                padding: 30px 20px;
+            }
+            
+            .name-group {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .brand-logo {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Sportifyy specific animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <div class="brand-logo">Sportifyy</div>
+            <h1>Welcome to Sportifyy</h1>
+            <p>Join our community of sports enthusiasts! Create an account to connect with fellow fans, track your favorite teams, and get personalized sports content tailored just for you.</p>
+            <div class="sports-icons">
+                <i class="fas fa-futbol floating"></i>
+                <i class="fas fa-basketball-ball floating" style="animation-delay: 0.2s;"></i>
+                <i class="fas fa-baseball-ball floating" style="animation-delay: 0.4s;"></i>
+                <i class="fas fa-football-ball floating" style="animation-delay: 0.6s;"></i>
+                <i class="fas fa-running floating" style="animation-delay: 0.8s;"></i>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-switch">
+                <button class="form-switch-btn active" id="login-btn">Login</button>
+                <button class="form-switch-btn" id="signup-btn">Sign Up</button>
+            </div>
+            
+            <div class="form-container" id="login-container">
+                <h2 class="form-title">Login to Your Account</h2>
+                <p class="form-subtitle">Welcome back! Please enter your details.</p>
+                <div class="success-message" id="login-success"></div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                        <div class="error-message" id="login-email-error">Please enter a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                        <span class="password-toggle" id="login-password-toggle">Show</span>
+                        <div class="error-message" id="login-password-error">Password is required</div>
+                    </div>
+                    <button type="submit" class="btn">Login to Sportifyy</button>
+                </form>
+                <p class="toggle-text">Don't have an account? <a class="toggle-link" id="show-signup">Sign Up</a></p>
+            </div>
+
+            <div class="form-container" id="signup-container" style="display: none;">
+                <h2 class="form-title">Create an Account</h2>
+                <p class="form-subtitle">Join our sports community today!</p>
+                <div class="success-message" id="signup-success"></div>
+                <form id="signup-form">
+                    <div class="name-group">
+                        <div class="form-group">
+                            <label for="signup-first-name">First Name</label>
+                            <input type="text" id="signup-first-name" required>
+                            <div class="error-message" id="signup-first-name-error">Please enter your first name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-last-name">Last Name</label>
+                            <input type="text" id="signup-last-name" required>
+                            <div class="error-message" id="signup-last-name-error">Please enter your last name</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" required>
+                        <div class="error-message" id="signup-email-error">Please enter a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-phone">Phone Number</label>
+                        <input type="tel" id="signup-phone" required>
+                        <div class="error-message" id="signup-phone-error">Please enter a valid phone number</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-sport">Favorite Sport</label>
+                        <select id="signup-sport" required>
+                            <option value="">Select your favorite sport</option>
+                            <option value="football">Football</option>
+                            <option value="basketball">Basketball</option>
+                            <option value="baseball">Baseball</option>
+                            <option value="soccer">Soccer</option>
+                            <option value="tennis">Tennis</option>
+                            <option value="golf">Golf</option>
+                            <option value="running">Running</option>
+                            <option value="swimming">Swimming</option>
+                            <option value="cycling">Cycling</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="error-message" id="signup-sport-error">Please select your favorite sport</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" required minlength="6">
+                        <span class="password-toggle" id="signup-password-toggle">Show</span>
+                        <div class="error-message" id="signup-password-error">Password must be at least 6 characters</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-confirm-password">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" required>
+                        <div class="error-message" id="signup-confirm-password-error">Passwords do not match</div>
+                    </div>
+                    <button type="submit" class="btn">Join Sportifyy</button>
+                </form>
+                <p class="toggle-text">Already have an account? <a class="toggle-link" id="show-login">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginContainer = document.getElementById('login-container');
+        const signupContainer = document.getElementById('signup-container');
+        const showSignupLink = document.getElementById('show-signup');
+        const showLoginLink = document.getElementById('show-login');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        
+        // Password toggle elements
+        const loginPasswordToggle = document.getElementById('login-password-toggle');
+        const signupPasswordToggle = document.getElementById('signup-password-toggle');
+        const loginPasswordInput = document.getElementById('login-password');
+        const signupPasswordInput = document.getElementById('signup-password');
+        
+        // Success message elements
+        const loginSuccess = document.getElementById('login-success');
+        const signupSuccess = document.getElementById('signup-success');
+
+        // Toggle between login and signup forms
+        function showLoginForm() {
+            signupContainer.style.display = 'none';
+            loginContainer.style.display = 'block';
+            loginBtn.classList.add('active');
+            signupBtn.classList.remove('active');
+        }
+
+        function showSignupForm() {
+            loginContainer.style.display = 'none';
+            signupContainer.style.display = 'block';
+            signupBtn.classList.add('active');
+            loginBtn.classList.remove('active');
+        }
+
+        showSignupLink.addEventListener('click', showSignupForm);
+        showLoginLink.addEventListener('click', showLoginForm);
+        loginBtn.addEventListener('click', showLoginForm);
+        signupBtn.addEventListener('click', showSignupForm);
+
+        // Password visibility toggle
+        loginPasswordToggle.addEventListener('click', () => {
+            if (loginPasswordInput.type === 'password') {
+                loginPasswordInput.type = 'text';
+                loginPasswordToggle.textContent = 'Hide';
+            } else {
+                loginPasswordInput.type = 'password';
+                loginPasswordToggle.textContent = 'Show';
+            }
+        });
+
+        signupPasswordToggle.addEventListener('click', () => {
+            if (signupPasswordInput.type === 'password') {
+                signupPasswordInput.type = 'text';
+                signupPasswordToggle.textContent = 'Hide';
+            } else {
+                signupPasswordInput.type = 'password';
+                signupPasswordToggle.textContent = 'Show';
+            }
+        });
+
+        // Form validation and submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateLoginForm()) {
+                // In a real application, you would send this data to a server
+                loginSuccess.textContent = 'Login successful! Redirecting to Sportifyy...';
+                loginSuccess.style.display = 'block';
+                setTimeout(() => {
+                    loginSuccess.style.display = 'none';
+                }, 3000);
+                loginForm.reset();
+            }
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (validateSignupForm()) {
+                // In a real application, you would send this data to a server
+                const firstName = document.getElementById('signup-first-name').value;
+                const sport = document.getElementById('signup-sport').value;
+                signupSuccess.textContent = `Welcome ${firstName}! Your Sportifyy ${sport} account has been created successfully!`;
+                signupSuccess.style.display = 'block';
+                setTimeout(() => {
+                    signupSuccess.style.display = 'none';
+                    // Switch to login form after successful signup
+                    showLoginForm();
+                }, 4000);
+                signupForm.reset();
+            }
+        });
+
+        // Validation functions
+        function validateLoginForm() {
+            let isValid = true;
+            const email = document.getElementById('login-email');
+            const password = document.getElementById('login-password');
+            const emailError = document.getElementById('login-email-error');
+            const passwordError = document.getElementById('login-password-error');
+
+            // Reset error messages
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+
+            // Email validation
+            if (!email.value || !isValidEmail(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Password validation
+            if (!password.value) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function validateSignupForm() {
+            let isValid = true;
+            const firstName = document.getElementById('signup-first-name');
+            const lastName = document.getElementById('signup-last-name');
+            const email = document.getElementById('signup-email');
+            const phone = document.getElementById('signup-phone');
+            const sport = document.getElementById('signup-sport');
+            const password = document.getElementById('signup-password');
+            const confirmPassword = document.getElementById('signup-confirm-password');
+            
+            const firstNameError = document.getElementById('signup-first-name-error');
+            const lastNameError = document.getElementById('signup-last-name-error');
+            const emailError = document.getElementById('signup-email-error');
+            const phoneError = document.getElementById('signup-phone-error');
+            const sportError = document.getElementById('signup-sport-error');
+            const passwordError = document.getElementById('signup-password-error');
+            const confirmPasswordError = document.getElementById('signup-confirm-password-error');
+
+            // Reset error messages
+            firstNameError.style.display = 'none';
+            lastNameError.style.display = 'none';
+            emailError.style.display = 'none';
+            phoneError.style.display = 'none';
+            sportError.style.display = 'none';
+            passwordError.style.display = 'none';
+            confirmPasswordError.style.display = 'none';
+
+            // First name validation
+            if (!firstName.value.trim()) {
+                firstNameError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Last name validation
+            if (!lastName.value.trim()) {
+                lastNameError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Email validation
+            if (!email.value || !isValidEmail(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Phone validation
+            if (!phone.value || !isValidPhone(phone.value)) {
+                phoneError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Sport validation
+            if (!sport.value) {
+                sportError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Password validation
+            if (!password.value || password.value.length < 6) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Confirm password validation
+            if (password.value !== confirmPassword.value) {
+                confirmPasswordError.style.display = 'block';
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidPhone(phone) {
+            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+            return phoneRegex.test(phone.replace(/[\(\)\-\s]/g, ''));
+        }
+    </script>
+</body>
+</html>
