@@ -1,0 +1,190 @@
+.basketball-analyzer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.basketball-analyzer h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  background: #f0f8ff;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.upload-section {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.upload-section input[type="file"] {
+  margin: 10px 0;
+  padding: 10px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  background: white;
+}
+
+.analysis-section {
+  margin: 20px 0;
+}
+
+.video-container {
+  position: relative;
+  display: inline-block;
+  margin: 20px auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-width: 100%;
+  text-align: center;
+}
+
+.video-container video {
+  display: block;
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  max-width: 640px;
+}
+
+.video-container canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+  border-radius: 8px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.controls button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.controls button:first-child {
+  background: #4CAF50;
+  color: white;
+}
+
+.controls button:first-child:hover:not(:disabled) {
+  background: #45a049;
+}
+
+.controls button:nth-child(2) {
+  background: #ff9800;
+  color: white;
+}
+
+.controls button:nth-child(2):hover {
+  background: #e68900;
+}
+
+.controls button:last-child {
+  background: #2196F3;
+  color: white;
+}
+
+.controls button:last-child:hover {
+  background: #1976D2;
+}
+
+.controls button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.chart-container {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.history {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.history h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.history-item {
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border-left: 4px solid #2196F3;
+}
+
+.history-item p {
+  margin: 5px 0;
+}
+
+.info-section {
+  background: #e3f2fd;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 30px 0;
+}
+
+.info-section h3 {
+  color: #1976d2;
+  margin-top: 0;
+}
+
+.info-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.info-section li {
+  padding: 8px 0;
+  border-bottom: 1px solid #bbdefb;
+}
+
+.info-section li:last-child {
+  border-bottom: none;
+}
+
+.info-section strong {
+  color: #1565c0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .controls button {
+    width: 200px;
+  }
+}

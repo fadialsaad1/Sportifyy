@@ -5,6 +5,7 @@ import PracticePage from "./Practice";
 import ProfilePage from "./Profile";
 import UploadPage from "./UploadPage";
 import Login from "./Login";
+import BasketballAnalyzer from "./BasketballAnalyzer";
 
 export default function App() {
     const [currentPage, setCurrentPage] = useState('Home');
@@ -21,6 +22,8 @@ export default function App() {
                 return <ProfilePage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
             case 'Upload':
                 return <UploadPage currentPage={currentPage} setCurrentPage={setCurrentPage} />;
+            case 'Basketball Analysis':
+                return <BasketballAnalyzer currentPage={currentPage} setCurrentPage={setCurrentPage} />;
             case "Sign in":
                 return <Login currentPage={currentPage} setCurrentPage={setCurrentPage} />;
             default:

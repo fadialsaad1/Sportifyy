@@ -17,8 +17,45 @@ export default function LoginPage({ currentPage, setCurrentPage }) {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            padding: '20px'
+            padding: '20px',
+            position: 'relative'
         }}>
+            {/* Back Button */}
+            <button 
+                onClick={() => setCurrentPage('Home')}
+                style={{
+                    position: 'absolute',
+                    top: '20px',
+                    left: '20px',
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    border: 'none',
+                    borderRadius: '50px',
+                    padding: '12px 20px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    color: '#1e293b',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    transition: 'all 0.3s ease',
+                    zIndex: 1000
+                }}
+                onMouseEnter={(e) => {
+                    e.target.style.background = 'white';
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.2)';
+                }}
+                onMouseLeave={(e) => {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.9)';
+                    e.target.style.transform = 'translateY(0px)';
+                    e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+                }}
+            >
+                <span style={{ fontSize: '20px' }}>←</span>
+                Back to Home
+            </button>
             <div style={{
                 display: 'flex',
                 width: '100%',
