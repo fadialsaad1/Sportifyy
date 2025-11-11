@@ -8,7 +8,7 @@ import Login from "./Login";
 import BasketballAnalyzer from "./BasketballAnalyzer";
 
 export default function App() {
-    const [currentPage, setCurrentPage] = useState('Home');
+    const [currentPage, setCurrentPage] = useState('Sign in');
 
     const renderPage = () => {
         switch(currentPage) {

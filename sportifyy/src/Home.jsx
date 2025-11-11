@@ -1,446 +1,199 @@
 ﻿import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Home, TrendingUp, Box, Settings } from "lucide-react";
 import BottomNavigation from "./BottomNavigation";
 
-const StatCard = ({ title, value, subtitle, color = 'sky' }) => (
-    <div className="bg-slate-900 rounded-xl p-4 w-48 h-28 shadow-lg text-white flex flex-col justify-between">
-        <div className="flex items-start justify-between">
-            <div className="flex-1">
-                <p className="text-xs text-slate-300 mb-1">{title}</p>
-                <h3 className="text-2xl font-bold text-white">{value}</h3>
-            </div>
-            <div className="text-right">
-                <p className="text-sm text-slate-400">{subtitle}</p>
-            </div>
-        </div>
-        <div className={`h-1 rounded-full bg-${color}-400`} />
-    </div>
-);
-
 export default function HomePage({ currentPage, setCurrentPage }) {
-    const [selectedDay, setSelectedDay] = useState(1); // Monday is selected by default (index 1)
+    const [selectedDay, setSelectedDay] = useState(1);
     const [showVideoPlayer, setShowVideoPlayer] = useState(false);
-    
-    const handlePlayVideo = () => {
-        setShowVideoPlayer(true);
-    };
-    
-    const handleCloseVideo = () => {
-        setShowVideoPlayer(false);
-    };
-    
+
+    const handlePlayVideo = () => setShowVideoPlayer(true);
+    const handleCloseVideo = () => setShowVideoPlayer(false);
+
     return (
         <div style={{
-            minHeight: '100vh',
-            backgroundColor: '#f8fafc',
-            paddingTop: '60px',
-            paddingBottom: '120px',
-            width: '100%',
-            maxWidth: '1024px',
-            margin: '0 auto',
-            position: 'relative'
+            minHeight: "100vh",
+            background: "linear-gradient(135deg, #0f4c75, #3282b8, #bbe1fa)",
+            paddingTop: "60px",
+            paddingBottom: "120px",
+            width: "100%",
+            maxWidth: "1024px",
+            margin: "0 auto",
+            fontFamily: "'Poppins', sans-serif"
         }}>
-            {/* Top right icons - positioned relative to viewport */}
-            <div 
-                style={{
-                    position: 'fixed',
-                    top: '16px',
-                    right: '16px',
-                    zIndex: 1000,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '14px'
-                }}
-            >
-                <img src="/notification_icon.png" alt="Notifications" style={{width: '88px', height: '88px'}} />
-                <img 
-                    src="/plus_button_icon.png" 
-                    alt="Add" 
-                    style={{
-                        width: '88px', 
-                        height: '88px',
-                        cursor: 'pointer'
-                    }}
-                    onClick={() => setCurrentPage('Basketball Analysis')}
+            {/* Top right icons */}
+            <div style={{
+                position: "fixed",
+                top: "16px",
+                right: "16px",
+                zIndex: 1000,
+                display: "flex",
+                alignItems: "center",
+                gap: "14px"
+            }}>
+                <img src="/notification_icon.png" alt="Notifications" style={{ width: "88px", height: "88px" }} />
+                <img
+                    src="/plus_button_icon.png"
+                    alt="Add"
+                    style={{ width: "88px", height: "88px", cursor: "pointer" }}
+                    onClick={() => setCurrentPage("Basketball Analysis")}
                 />
             </div>
 
-            {/* Content container */}
-            <div style={{padding: '0 24px', width: '100%'}}>
-                {/* Header */}
-                <header style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    width: '100%',
-                    marginBottom: '24px'
-                }}>
-                    <img src="/app_icon.png" alt="Sportifyy" style={{width: '40px', height: '40px'}} />
-                    <h1 style={{
-                        fontSize: '24px',
-                        fontWeight: '600',
-                        marginLeft: '16px',
-                        color: '#1e293b'
-                    }}>Sportify</h1>
-                </header>
-
-            {/* Goal bar */}
+            {/* Header */}
             <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                backgroundColor: 'white',
-                border: '2px solid black',
-                borderRadius: '25px',
-                padding: '12px 20px',
-                marginBottom: '24px',
-                width: '100%',
-                maxWidth: '800px',
-                justifyContent: 'space-between'
+                display: "flex",
+                alignItems: "center",
+                padding: "0 24px",
+                marginBottom: "24px"
             }}>
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    <span style={{fontSize: '14px', color: '#64748b', marginRight: '8px'}}>Goal:</span>
-                    <span style={{fontSize: '14px', color: '#1e293b', fontWeight: '700'}}>Basketball Shot</span>
-                </div>
-                <img src="/basketball_icon.png" alt="Basketball" style={{width: '32px', height: '32px'}} />
+                <img src="/app_icon.png" alt="Sportifyy" style={{ width: "40px", height: "40px" }} />
+                <h1 style={{ fontSize: "24px", fontWeight: "600", marginLeft: "16px", color: "#fff" }}>Sportify</h1>
             </div>
 
-            <main className="w-full">
-                {/* Calendar/Timeline row */}
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    backgroundColor: 'white',
-                    borderRadius: '16px',
-                    padding: '12px 16px',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                    marginBottom: '34px',
-                    width: '100%',
-                    maxWidth: '600px',
-                    margin: '0 auto 34px auto',
-                    border: '1px solid #e2e8f0'
-                }}>
-                    <button style={{
-                        padding: '6px',
-                        borderRadius: '6px',
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                        color: '#64748b',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                        fontWeight: 'bold'
-                    }}>&lt;</button>
-                    <div style={{display: 'flex', gap: '4px'}}>
-                        {[
-                            {day: 'S', date: 14},
-                            {day: 'M', date: 15},
-                            {day: 'T', date: 16},
-                            {day: 'W', date: 17},
-                            {day: 'T', date: 18},
-                            {day: 'F', date: 19},
-                            {day: 'S', date: 20}
-                        ].map((item, i) => (
-                            <button 
-                                key={i} 
-                                onClick={() => setSelectedDay(i)}
+            {/* Goal Card */}
+            <div style={{
+                backgroundColor: "white",
+                borderRadius: "20px",
+                padding: "16px 24px",
+                margin: "0 20px 24px 20px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center"
+            }}>
+                <div>
+                    <span style={{ fontSize: "14px", color: "#64748b", marginRight: "6px" }}>Goal:</span>
+                    <span style={{ fontSize: "14px", fontWeight: "700" }}>Basketball Shot</span>
+                </div>
+                <img src="/basketball_icon.png" alt="Basketball" style={{ width: "32px", height: "32px" }} />
+            </div>
+
+            {/* Calendar */}
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "8px",
+                margin: "0 20px 34px 20px",
+                padding: "12px",
+                borderRadius: "16px",
+                backgroundColor: "white",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                border: "1px solid #e2e8f0"
+            }}>
+                <button style={{ background: "transparent", border: "none", fontSize: "16px", color: "#64748b", cursor: "pointer" }}>&lt;</button>
+                <div style={{ display: "flex", gap: "4px" }}>
+                    {[{ day: 'S', date: 14 }, { day: 'M', date: 15 }, { day: 'T', date: 16 }, { day: 'W', date: 17 }, { day: 'T', date: 18 }, { day: 'F', date: 19 }, { day: 'S', date: 20 }]
+                        .map((item, i) => (
+                            <button key={i} onClick={() => setSelectedDay(i)}
                                 style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    padding: '8px 12px',
-                                    borderRadius: '10px',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
-                                    backgroundColor: selectedDay === i ? '#0f172a' : 'transparent',
-                                    color: selectedDay === i ? 'white' : '#64748b',
-                                    minWidth: '40px'
-                                }}
-                                onMouseEnter={(e) => {
-                                    if (selectedDay !== i) {
-                                        e.target.style.backgroundColor = '#f1f5f9';
-                                    }
-                                }}
-                                onMouseLeave={(e) => {
-                                    if (selectedDay !== i) {
-                                        e.target.style.backgroundColor = 'transparent';
-                                    }
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    padding: "8px 12px",
+                                    borderRadius: "12px",
+                                    border: "none",
+                                    cursor: "pointer",
+                                    backgroundColor: selectedDay === i ? "#0f4c75" : "transparent",
+                                    color: selectedDay === i ? "white" : "#64748b",
+                                    minWidth: "40px"
                                 }}
                             >
-                                <span style={{fontSize: '11px', marginBottom: '2px'}}>{item.day}</span>
-                                <span style={{fontSize: '13px', fontWeight: '600'}}>{item.date}</span>
+                                <span style={{ fontSize: "11px", marginBottom: "2px" }}>{item.day}</span>
+                                <span style={{ fontSize: "13px", fontWeight: "600" }}>{item.date}</span>
                             </button>
                         ))}
-                    </div>
-                    <button style={{
-                        padding: '6px',
-                        borderRadius: '6px',
-                        border: 'none',
-                        backgroundColor: 'transparent',
-                        color: '#64748b',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                        fontWeight: 'bold'
-                    }}>&gt;</button>
                 </div>
-
-                {/* Black Stat cards row */}
-                <div style={{
-                    display: 'flex',
-                    gap: '16px',
-                    marginBottom: '24px',
-                    justifyContent: 'flex-start'
-                }}>
-                    {/* Technique Score */}
-                    <div style={{
-                        backgroundColor: '#0f172a',
-                        borderRadius: '12px',
-                        padding: '14px',
-                        width: '165px',
-                        height: '110px',
-                        color: 'white',
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between'
-                    }}>
-                        <div>
-                            <p style={{fontSize: '11px', color: '#cbd5e1', marginBottom: '4px'}}>Technique Score</p>
-                            <h3 style={{fontSize: '26px', fontWeight: 'bold', color: 'white', margin: '0'}}>8.9</h3>
-                            <p style={{fontSize: '13px', color: '#94a3b8'}}>/10</p>
-                        </div>
-                        <div style={{height: '4px', borderRadius: '2px', backgroundColor: '#8b5cf6'}} />
-                    </div>
-
-                    {/* Overall Rating */}
-                    <div style={{
-                        backgroundColor: '#0f172a',
-                        borderRadius: '12px',
-                        padding: '14px',
-                        width: '165px',
-                        height: '110px',
-                        color: 'white',
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between'
-                    }}>
-                        <div>
-                            <p style={{fontSize: '11px', color: '#cbd5e1', marginBottom: '4px'}}>Overall Rating</p>
-                            <h3 style={{fontSize: '26px', fontWeight: 'bold', color: 'white', margin: '0'}}>92</h3>
-                            <p style={{fontSize: '13px', color: '#94a3b8'}}>★</p>
-                        </div>
-                        <div style={{height: '4px', borderRadius: '2px', backgroundColor: '#10b981'}} />
-                    </div>
-
-                    {/* Accuracy */}
-                    <div style={{
-                        backgroundColor: '#0f172a',
-                        borderRadius: '12px',
-                        padding: '14px',
-                        width: '165px',
-                        height: '110px',
-                        color: 'white',
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between'
-                    }}>
-                        <div>
-                            <p style={{fontSize: '11px', color: '#cbd5e1', marginBottom: '4px'}}>Accuracy</p>
-                            <h3 style={{fontSize: '26px', fontWeight: 'bold', color: 'white', margin: '0'}}>87%</h3>
-                        </div>
-                        <div style={{height: '4px', borderRadius: '2px', backgroundColor: '#3b82f6'}} />
-                    </div>
-
-                    {/* Shots Made */}
-                    <div style={{
-                        backgroundColor: '#0f172a',
-                        borderRadius: '12px',
-                        padding: '14px',
-                        width: '165px',
-                        height: '110px',
-                        color: 'white',
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between'
-                    }}>
-                        <div>
-                            <p style={{fontSize: '11px', color: '#cbd5e1', marginBottom: '4px'}}>Shots Made</p>
-                            <h3 style={{fontSize: '26px', fontWeight: 'bold', color: 'white', margin: '0'}}>54</h3>
-                            <p style={{fontSize: '13px', color: '#94a3b8'}}>🏀</p>
-                        </div>
-                        <div style={{height: '4px', borderRadius: '2px', backgroundColor: '#f97316'}} />
-                    </div>
-                </div>
-            {/* Last Practice bubble - positioned under the black cards */}
-            <div style={{
-                width: '100%',
-                marginTop: '24px',
-                marginBottom: '24px'
-            }}>
-                <h4 style={{fontSize: '14px', color: '#64748b', marginBottom: '10px'}}>Last Practice</h4>
-                <div 
-                    style={{
-                        backgroundColor: '#dcfce7',
-                        borderRadius: '12px',
-                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                        border: '1px solid #bbf7d0',
-                        padding: '16px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '16px',
-                        maxWidth: '500px',
-                        cursor: 'pointer',
-                        transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-                    }}
-                    onClick={handlePlayVideo}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.15)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0px)';
-                        e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-                    }}
-                >
-                    {/* Small video thumbnail on the left */}
-                    <div style={{
-                        position: 'relative',
-                        backgroundColor: '#1e293b',
-                        width: '80px',
-                        height: '60px',
-                        flexShrink: 0,
-                        borderRadius: '6px',
-                        overflow: 'hidden'
-                    }}>
-                        <img 
-                            src="/last_video_thumbnail.png"
-                            alt="Last practice thumbnail"
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover'
-                            }}
-                        />
-                        {/* Tiny play button */}
-                        <div style={{
-                            position: 'absolute',
-                            top: '0',
-                            left: '0',
-                            right: '0',
-                            bottom: '0',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}>
-                            <div style={{
-                                width: '24px',
-                                height: '24px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                borderRadius: '50%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}>
-                                <div style={{
-                                    width: '0',
-                                    height: '0',
-                                    borderLeft: '8px solid #1e293b',
-                                    borderTop: '5px solid transparent',
-                                    borderBottom: '5px solid transparent',
-                                    marginLeft: '2px'
-                                }}></div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Message text on the right */}
-                    <div style={{flex: 1}}>
-                        <p style={{fontSize: '13px', color: '#374151', margin: '0', lineHeight: '1.5', letterSpacing:'1.2px'}}>
-                            Your shooting accuracy improved by 5% since last week! Keep it up!
-                        </p>
-                    </div>
-                </div>
+                <button style={{ background: "transparent", border: "none", fontSize: "16px", color: "#64748b", cursor: "pointer" }}>&gt;</button>
             </div>
 
-            </main>
-            
-            {/* Close content container */}
+            {/* Stat Cards */}
+            <div style={{
+                display: "flex",
+                gap: "16px",
+                margin: "0 20px 24px 20px",
+                flexWrap: "wrap",
+                justifyContent: "center"
+            }}>
+                {[
+                    { title: "Technique Score", value: "8.9", subtitle: "/10", color: "#8b5cf6" },
+                    { title: "Overall Rating", value: "92", subtitle: "★", color: "#10b981" },
+                    { title: "Accuracy", value: "87%", subtitle: "", color: "#3b82f6" },
+                    { title: "Shots Made", value: "54", subtitle: "🏀", color: "#f97316" }
+                ].map((card, i) => (
+                    <div key={i} style={{
+                        backgroundColor: "#fff",
+                        borderRadius: "20px",
+                        padding: "14px",
+                        width: "165px",
+                        height: "110px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        boxShadow: "0 4px 20px rgba(0,0,0,0.15)"
+                    }}>
+                        <div>
+                            <p style={{ fontSize: "11px", color: "#64748b", marginBottom: "4px" }}>{card.title}</p>
+                            <h3 style={{ fontSize: "26px", fontWeight: "bold", color: "#1e293b", margin: "0" }}>{card.value}</h3>
+                            {card.subtitle && <p style={{ fontSize: "13px", color: "#64748b" }}>{card.subtitle}</p>}
+                        </div>
+                        <div style={{ height: "4px", borderRadius: "2px", backgroundColor: card.color }} />
+                    </div>
+                ))}
+            </div>
+
+            {/* Last Practice */}
+            <div style={{
+                backgroundColor: "#fff",
+                borderRadius: "20px",
+                padding: "16px 24px",
+                margin: "0 20px 24px 20px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                cursor: "pointer"
+            }} onClick={handlePlayVideo}>
+                <div style={{ width: "80px", height: "60px", borderRadius: "12px", overflow: "hidden" }}>
+                    <img src="/last_video_thumbnail.png" alt="Last practice" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </div>
+                <p style={{ margin: 0, fontSize: "13px", color: "#1e293b", lineHeight: "1.5" }}>
+                    Your shooting accuracy improved by 5% since last week! Keep it up!
+                </p>
             </div>
 
             <BottomNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
-            {/* Video Player Modal */}
+            {/* Video Modal */}
             {showVideoPlayer && (
-                <div 
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        zIndex: 2000,
-                        padding: '20px'
-                    }}
-                    onClick={handleCloseVideo}
-                >
-                    <div 
-                        style={{
-                            position: 'relative',
-                            maxWidth: '90vw',
-                            maxHeight: '90vh',
-                            backgroundColor: '#000',
-                            borderRadius: '12px',
-                            overflow: 'hidden'
-                        }}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        {/* Close button */}
-                        <button
-                            onClick={handleCloseVideo}
-                            style={{
-                                position: 'absolute',
-                                top: '10px',
-                                right: '10px',
-                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                border: 'none',
-                                borderRadius: '50%',
-                                width: '40px',
-                                height: '40px',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '20px',
-                                fontWeight: 'bold',
-                                color: '#1e293b',
-                                zIndex: 2001
-                            }}
-                        >
-                            ×
-                        </button>
-                        
-                        {/* Video Player */}
-                        <video 
-                            width="100%" 
-                            height="auto" 
-                            controls 
-                            autoPlay
-                            style={{
-                                maxWidth: '800px',
-                                maxHeight: '600px',
-                                borderRadius: '12px'
-                            }}
-                        >
+                <div style={{
+                    position: "fixed",
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: "rgba(0,0,0,0.9)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 2000,
+                    padding: "20px"
+                }} onClick={handleCloseVideo}>
+                    <div style={{ position: "relative", maxWidth: "90vw", maxHeight: "90vh" }} onClick={e => e.stopPropagation()}>
+                        <button onClick={handleCloseVideo} style={{
+                            position: "absolute",
+                            top: "10px",
+                            right: "10px",
+                            backgroundColor: "rgba(255,255,255,0.9)",
+                            border: "none",
+                            borderRadius: "50%",
+                            width: "40px",
+                            height: "40px",
+                            cursor: "pointer",
+                            fontSize: "20px",
+                            fontWeight: "bold",
+                            color: "#1e293b",
+                            zIndex: 2001
+                        }}>×</button>
+                        <video width="100%" height="auto" controls autoPlay style={{ borderRadius: "12px" }}>
                             <source src="/basketballshot_video.mp4" type="video/mp4" />
                             <source src="/basketballshot_video.webm" type="video/webm" />
-                            Your browser does not support the video tag.
                         </video>
                     </div>
                 </div>

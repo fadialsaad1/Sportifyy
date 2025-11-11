@@ -1,285 +1,219 @@
-﻿import React, { useState } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
 import BottomNavigation from "./BottomNavigation";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function ProfilePage({ currentPage, setCurrentPage }) {
-    const [showReport, setShowReport] = useState(false);
+    const [user, setUser] = useState(null);
+    const [analysisHistory, setAnalysisHistory] = useState([]);
+    const [activities, setActivities] = useState([]);
+    const fileInputRef = useRef(null);
 
-    // Function to generate and download report
+    // Load user info and AI analysis data
+    useEffect(() => {
+        const storedUser = JSON.parse(localStorage.getItem("userData"));
+        if (storedUser) {
+            const firstName = storedUser.name?.split(" ")[0] || storedUser.name;
+            setUser({ ...storedUser, firstName });
+        } else {
+            setCurrentPage("Sign in");
+        }
+
+        const savedAnalysis = JSON.parse(localStorage.getItem("sportsifyAnalysis")) || [];
+        setAnalysisHistory(savedAnalysis);
+
+        const activityList = savedAnalysis.map(
+            entry => `✅ Analysis completed: ${entry.filename}`
+        );
+        setActivities(activityList);
+    }, [setCurrentPage]);
+
+    // Avatar upload handler
+    const handleAvatarChange = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const updatedUser = { ...user, avatar: reader.result };
+            setUser(updatedUser);
+            localStorage.setItem("userData", JSON.stringify(updatedUser));
+        };
+        reader.readAsDataURL(file);
+    };
+
     const handleDownloadReport = () => {
-        const reportData = `
-🏀 Sportify Player Performance Report
---------------------------------------
-Name: Alex
-Level: 14 - Basketball Enthusiast
+        if (!user) return;
 
-📈 Shooting Accuracy: 88%
-🎯 Free Throw This Month: 75%
+        let report = `
+🏀 Sportify Player Report
+---------------------------
+Name: ${user.firstName}
+Level: ${user.level}
+Favorite Sport: ${user.favoriteSport}
+Generated: ${new Date().toLocaleString()}
 
-Recent Activities:
-- Completed "Practice Drill 3"
-- Joined "Dribbling Masters" Group
---------------------------------------
-Generated on: ${new Date().toLocaleString()}
+🧠 AI Basketball Analysis History
 `;
-        const blob = new Blob([reportData], { type: "text/plain" });
+
+        if (analysisHistory.length === 0) {
+            report += "\nNo analysis data yet.\n";
+        } else {
+            analysisHistory.forEach((entry, index) => {
+                report += `
+${index + 1}. File: ${entry.filename}
+   Timestamp: ${entry.timestamp}
+   Shots: ${entry.shots}, Passes: ${entry.passes}, Scores: ${entry.scores}
+`;
+            });
+        }
+
+        const blob = new Blob([report], { type: "text/plain" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "Sportify_Report.txt";
+        link.download = `${user.firstName}_Sportify_Report.txt`;
         link.click();
     };
+
+    if (!user)
+        return <p style={{ textAlign: "center", marginTop: "100px" }}>Loading...</p>;
 
     return (
         <div
             style={{
-                minHeight: '100vh',
-                backgroundColor: '#f8fafc',
-                paddingTop: '60px',
-                paddingBottom: '120px',
-                width: '100%',
-                maxWidth: '1024px',
-                margin: '0 auto',
-                position: 'relative'
+                minHeight: "100vh",
+                background: "linear-gradient(135deg, #0f4c75, #3282b8, #bbe1fa)",
+                paddingTop: "60px",
+                paddingBottom: "120px",
+                width: "100%",
+                maxWidth: "1024px",
+                margin: "0 auto",
+                fontFamily: "'Poppins', sans-serif",
             }}
         >
             {/* Profile Header */}
-            <div
-                style={{
-                    textAlign: "center",
-                    padding: "40px 16px 20px 16px",
-                }}
-            >
-                {/* Avatar */}
-                <img
-                    src="/avatar.png"
-                    alt="Profile Avatar"
-                    style={{
-                        width: "90px",
-                        height: "90px",
-                        borderRadius: "50%",
-                        border: "3px solid #3b82f6",
-                        marginBottom: "12px",
-                    }}
-                />
-                <h2 style={{ fontSize: "22px", fontWeight: "600", color: "#1e293b" }}>
-                    Alex
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "30px" }}>
+                <div
+                    style={{ position: "relative", width: "110px", height: "110px", cursor: "pointer" }}
+                    onClick={() => fileInputRef.current.click()}
+                >
+                    <img
+                        src={user.avatar || "/avatar.png"}
+                        alt="Profile Avatar"
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            borderRadius: "50%",
+                            border: "4px solid #2563eb",
+                            objectFit: "cover",
+                            boxShadow: "0 8px 20px rgba(0,0,0,0.25)"
+                        }}
+                    />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        style={{ display: "none" }}
+                        onChange={handleAvatarChange}
+                    />
+                </div>
+                <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#fff", marginTop: "12px" }}>
+                    {user.firstName}
                 </h2>
-                <p style={{ color: "#64748b", marginTop: "4px" }}>
-                    Level 14 - Basketball Enthusiast
+                <p style={{ color: "#dbeafe", marginTop: "4px", fontWeight: 500 }}>
+                    Level {user.level} - {user.favoriteSport?.toUpperCase() || "SPORT"} Fan
                 </p>
 
-                {/* 📊 Report Button */}
                 <button
-                    onClick={() => setShowReport(true)}
+                    onClick={handleDownloadReport}
                     style={{
-                        marginTop: "12px",
-                        backgroundColor: "#3b82f6",
+                        marginTop: "16px",
+                        background: "linear-gradient(135deg, #3b82f6, #2563eb)",
                         color: "white",
                         border: "none",
-                        borderRadius: "8px",
-                        padding: "10px 20px",
-                        fontSize: "14px",
+                        borderRadius: "16px",
+                        padding: "12px 28px",
+                        fontSize: "15px",
                         cursor: "pointer",
-                        fontWeight: "500",
+                        fontWeight: "600",
+                        boxShadow: "0 6px 20px rgba(0,0,0,0.2)",
+                        transition: "all 0.3s ease",
                     }}
+                    onMouseOver={e => e.currentTarget.style.transform = "translateY(-2px)"}
+                    onMouseOut={e => e.currentTarget.style.transform = "translateY(0)"}
                 >
-                    📊 View Reports
+                    📊 Download Most Recent Report
                 </button>
             </div>
 
-            {/* Stats Row */}
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: "40px",
-                    marginBottom: "24px",
-                }}
-            >
+            {/* Stats & Badges */}
+            <div style={{
+                display: "flex",
+                justifyContent: "space-around",
+                margin: "20px",
+                padding: "20px",
+                backgroundColor: "rgba(255,255,255,0.1)",
+                borderRadius: "20px",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.15)"
+            }}>
                 <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "16px", color: "#1e293b", fontWeight: "600" }}>
-                        353
-                    </h3>
-                    <p style={{ fontSize: "13px", color: "#94a3b8" }}>Followers</p>
+                    <h3 style={{ fontSize: "18px", color: "#fff", fontWeight: "700" }}>{user.badges}</h3>
+                    <p style={{ fontSize: "14px", color: "#dbeafe" }}>Badges</p>
                 </div>
                 <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "16px", color: "#1e293b", fontWeight: "600" }}>
-                        0
-                    </h3>
-                    <p style={{ fontSize: "13px", color: "#94a3b8" }}>Badges</p>
-                </div>
-                <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "16px", color: "#1e293b", fontWeight: "600" }}>
-                        120
-                    </h3>
-                    <p style={{ fontSize: "13px", color: "#94a3b8" }}>Following</p>
+                    <h3 style={{ fontSize: "18px", color: "#fff", fontWeight: "700" }}>{activities.length}</h3>
+                    <p style={{ fontSize: "14px", color: "#dbeafe" }}>Activities</p>
                 </div>
             </div>
 
-            {/* Recent Activity */}
-            <div
-                style={{
-                    backgroundColor: "white",
-                    borderRadius: "16px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-                    margin: "0 20px 20px 20px",
-                    padding: "20px",
-                }}
-            >
-                <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#1e293b" }}>
+            {/* AI Analysis Section */}
+            <div style={{
+                backgroundColor: "#fff",
+                borderRadius: "20px",
+                padding: "20px",
+                margin: "0 20px 20px 20px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)"
+            }}>
+                <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#1e293b", marginBottom: "12px" }}>
+                    🧠 AI Basketball Analysis History
+                </h3>
+                {analysisHistory.length === 0 ? (
+                    <p style={{ color: "#64748b", fontSize: "14px" }}>No analysis data yet.</p>
+                ) : (
+                    <ul style={{ listStyle: "none", paddingLeft: 0 }}>
+                        {analysisHistory.map((entry, i) => (
+                            <li key={i} style={{
+                                padding: "10px",
+                                marginBottom: "10px",
+                                backgroundColor: "#f1f5f9",
+                                borderRadius: "12px",
+                                boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+                            }}>
+                                <strong>{entry.filename}</strong> — {entry.timestamp}<br />
+                                Shots: {entry.shots}, Passes: {entry.passes}, Scores: {entry.scores}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+
+            {/* Recent Activity Section */}
+            <div style={{
+                backgroundColor: "#fff",
+                borderRadius: "20px",
+                padding: "20px",
+                margin: "0 20px 20px 20px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)"
+            }}>
+                <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#1e293b", marginBottom: "12px" }}>
                     Recent Activity
                 </h3>
-                <ul style={{ marginTop: "10px", color: "#475569", fontSize: "14px" }}>
-                    <li>✅ Completed "Practice Drill 3"</li>
-                    <li>🏀 Joined "Dribbling Masters" Group</li>
+                <ul style={{ listStyle: "none", paddingLeft: 0, color: "#475569", fontSize: "14px" }}>
+                    {activities.length > 0 ? (
+                        activities.map((a, i) => <li key={i}>{a}</li>)
+                    ) : (
+                        <li>No activity yet.</li>
+                    )}
                 </ul>
             </div>
-
-            {/* Skills & Progress */}
-            <div
-                style={{
-                    backgroundColor: "white",
-                    borderRadius: "16px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-                    margin: "0 20px",
-                    padding: "20px",
-                }}
-            >
-                <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#1e293b" }}>
-                    Skills & Progress
-                </h3>
-
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        gap: "40px",
-                        marginTop: "16px",
-                    }}
-                >
-                    {/* Shooting Accuracy */}
-                    <div style={{ textAlign: "center" }}>
-                        <div
-                            style={{
-                                width: "80px",
-                                height: "80px",
-                                borderRadius: "50%",
-                                border: "5px solid #22c55e",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                margin: "0 auto",
-                                fontWeight: "600",
-                                color: "#16a34a",
-                            }}
-                        >
-                            88%
-                        </div>
-                        <p style={{ marginTop: "8px", fontSize: "14px", color: "#475569" }}>
-                            Shooting Accuracy
-                        </p>
-                    </div>
-
-                    {/* Free Throw */}
-                    <div style={{ textAlign: "center" }}>
-                        <div
-                            style={{
-                                width: "80px",
-                                height: "80px",
-                                borderRadius: "50%",
-                                border: "5px solid #22c55e",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                margin: "0 auto",
-                                fontWeight: "600",
-                                color: "#16a34a",
-                            }}
-                        >
-                            75%
-                        </div>
-                        <p style={{ marginTop: "8px", fontSize: "14px", color: "#475569" }}>
-                            Free Throw This Month
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            {/* 📄 Report Modal */}
-            <AnimatePresence>
-                {showReport && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        style={{
-                            position: "fixed",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundColor: "rgba(0,0,0,0.4)",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            zIndex: 999,
-                        }}
-                    >
-                        <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.9, opacity: 0 }}
-                            style={{
-                                backgroundColor: "white",
-                                borderRadius: "16px",
-                                padding: "24px",
-                                width: "90%",
-                                maxWidth: "400px",
-                                textAlign: "center",
-                            }}
-                        >
-                            <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#1e293b" }}>
-                                Performance Report
-                            </h3>
-                            <p style={{ marginTop: "8px", color: "#475569", fontSize: "14px" }}>
-                                Shooting Accuracy: 88% <br />
-                                Free Throw This Month: 75% <br />
-                                Level: 14 - Basketball Enthusiast
-                            </p>
-
-                            <div style={{ marginTop: "20px" }}>
-                                <button
-                                    onClick={handleDownloadReport}
-                                    style={{
-                                        backgroundColor: "#16a34a",
-                                        color: "white",
-                                        border: "none",
-                                        borderRadius: "8px",
-                                        padding: "10px 20px",
-                                        marginRight: "10px",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    ⬇️ Download Report
-                                </button>
-                                <button
-                                    onClick={() => setShowReport(false)}
-                                    style={{
-                                        backgroundColor: "#e5e7eb",
-                                        color: "#1e293b",
-                                        border: "none",
-                                        borderRadius: "8px",
-                                        padding: "10px 20px",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Close
-                                </button>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
 
             <BottomNavigation currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>

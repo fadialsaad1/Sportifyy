@@ -784,15 +784,44 @@ const BasketballAnalyzer = ({ setCurrentPage }) => {
     }
   };
 
-  const saveAnalysis = () => {
-    const timestamp = new Date().toLocaleString();
-    const analysis = {
-      timestamp,
-      filename: videoFile?.name || 'Unknown',
-      ...stats
+    const saveAnalysis = () => {
+        const timestamp = new Date().toLocaleString();
+        const analysis = {
+            timestamp,
+            filename: videoFile?.name || "Unknown",
+            ...stats
+        };
+
+        // Create text content for the report
+        const reportText = `
+🏀 Sportify Analysis Report
+------------------------------
+File: ${analysis.filename}
+Date: ${timestamp}
+
+🎯 Shooting Accuracy: ${analysis.shootingAccuracy || 0}%
+🎯 Free Throw: ${analysis.freeThrow || 0}%
+🏃‍♂️ Shots: ${analysis.shots || 0}
+🤝 Passes: ${analysis.passes || 0}
+🔥 Scores: ${analysis.scores || 0}
+
+Keep practicing and come back for more insights!
+  `;
+
+        // Create and download a .txt file
+        const blob = new Blob([reportText], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `${analysis.filename.replace(/\.[^/.]+$/, "") || "Sportify"}_Report.txt`;
+        link.click();
+
+        // Optionally still store it locally (if you want to keep the history visible)
+        const updatedHistory = [analysis, ...analysisHistory.slice(0, 4)];
+        setAnalysisHistory(updatedHistory);
+        localStorage.setItem("sportsifyAnalysis", JSON.stringify(updatedHistory));
+
+        setDebugInfo(`✅ Report generated and downloaded for ${analysis.filename}`);
     };
-    setAnalysisHistory(prev => [analysis, ...prev.slice(0, 4)]); // Keep last 5
-  };
 
   // Chart data
   const chartData = {
