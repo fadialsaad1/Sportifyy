@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\fadif\\source\\repos\\Sportify\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportify\\sportifyy\\src\\login.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\login.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportify\\sportifyy\\src\\practice.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\practice.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
@@ -17,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportify\\sportifyy\\src\\profile.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\profile.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportify\\sportifyy\\src\\login.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|solutionrelative:sportifyy\\src\\login.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22858066-9B8B-5145-8893-EC801FC8FE1C}|Sportifyy\\sportifyy.esproj|c:\\users\\fadif\\source\\repos\\sportify\\sportifyy\\src\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
@@ -50,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -71,7 +71,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Progress.jsx",
               "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportify\\sportifyy\\src\\Progress.jsx",
               "RelativeDocumentMoniker": "sportifyy\\src\\Progress.jsx",
@@ -84,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Profile.jsx",
               "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportify\\sportifyy\\src\\Profile.jsx",
               "RelativeDocumentMoniker": "sportifyy\\src\\Profile.jsx",
@@ -110,7 +110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Home.jsx",
               "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportify\\sportifyy\\src\\Home.jsx",
               "RelativeDocumentMoniker": "sportifyy\\src\\Home.jsx",
@@ -123,13 +123,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Practice.jsx",
               "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportify\\sportifyy\\src\\Practice.jsx",
               "RelativeDocumentMoniker": "sportifyy\\src\\Practice.jsx",
               "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportify\\sportifyy\\src\\Practice.jsx",
               "RelativeToolTip": "sportifyy\\src\\Practice.jsx",
-              "ViewState": "AgIAAHcAAAAAAAAAAAAiwJsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAiwJsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
               "WhenOpened": "2025-11-11T04:29:38.97Z",
               "EditorCaption": ""
@@ -175,13 +175,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "login.jsx",
               "DocumentMoniker": "C:\\Users\\fadif\\source\\repos\\Sportify\\sportifyy\\src\\login.jsx",
               "RelativeDocumentMoniker": "sportifyy\\src\\login.jsx",
               "ToolTip": "C:\\Users\\fadif\\source\\repos\\Sportify\\sportifyy\\src\\login.jsx",
               "RelativeToolTip": "sportifyy\\src\\login.jsx",
-              "ViewState": "AgIAAKUAAAAAAAAAAAAiwMkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
               "WhenOpened": "2025-11-05T01:50:55.179Z",
               "EditorCaption": ""
