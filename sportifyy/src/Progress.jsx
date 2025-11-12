@@ -5,7 +5,7 @@ export default function ProgressPage({ currentPage, setCurrentPage }) {
     return (
         <div style={{
             minHeight: '100vh',
-            background: 'linear-gradient(135deg, #0f4c75, #3282b8, #bbe1fa)',
+            background: 'linear-gradient(135deg, #d5e2ebff, #fdfeffff, #cce4f5ff)',
             paddingTop: '60px',
             paddingBottom: '120px',
             width: '100%',
@@ -41,7 +41,7 @@ export default function ProgressPage({ currentPage, setCurrentPage }) {
                 marginBottom: '24px'
             }}>
                 <img src="/app_icon.png" alt="Sportifyy" style={{ width: '40px', height: '40px' }} />
-                <h1 style={{ fontSize: '24px', fontWeight: '700', marginLeft: '16px', color: '#fff' }}>
+                <h1 style={{ fontSize: '24px', fontWeight: '700', marginLeft: '16px', color: '#000000ff' }}>
                     Progress
                 </h1>
             </header>

@@ -175,11 +175,11 @@ const BasketballAnalyzer = ({ setCurrentPage }) => {
       console.log('Auto-play blocked:', e);
     }
 
-    // Timeline: Pass at 1s, Pass at 3s, Score at 9s
+    // Timeline: Pass at 1s, Pass at 3s, Score at 7s (dev mode)
     const events = [
       { time: 1000, type: 'passes', message: 'Pass detected!' },
       { time: 3000, type: 'passes', message: 'Another pass detected!' },
-      { time: 9000, type: 'scores', message: 'Score detected!' }
+      { time: 7000, type: 'scores', message: 'Score detected!' }
     ];
 
     setDebugInfo('⏰ Second 0 - Dev mode analysis started');
@@ -784,44 +784,59 @@ const BasketballAnalyzer = ({ setCurrentPage }) => {
     }
   };
 
-    const saveAnalysis = () => {
-        const timestamp = new Date().toLocaleString();
-        const analysis = {
-            timestamp,
-            filename: videoFile?.name || "Unknown",
-            ...stats
-        };
-
-        // Create text content for the report
-        const reportText = `
-🏀 Sportify Analysis Report
-------------------------------
-File: ${analysis.filename}
-Date: ${timestamp}
-
-🎯 Shooting Accuracy: ${analysis.shootingAccuracy || 0}%
-🎯 Free Throw: ${analysis.freeThrow || 0}%
-🏃‍♂️ Shots: ${analysis.shots || 0}
-🤝 Passes: ${analysis.passes || 0}
-🔥 Scores: ${analysis.scores || 0}
-
-Keep practicing and come back for more insights!
-  `;
-
-        // Create and download a .txt file
-        const blob = new Blob([reportText], { type: "text/plain" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `${analysis.filename.replace(/\.[^/.]+$/, "") || "Sportify"}_Report.txt`;
-        link.click();
-
-        // Optionally still store it locally (if you want to keep the history visible)
-        const updatedHistory = [analysis, ...analysisHistory.slice(0, 4)];
-        setAnalysisHistory(updatedHistory);
-        localStorage.setItem("sportsifyAnalysis", JSON.stringify(updatedHistory));
-
-        setDebugInfo(`✅ Report generated and downloaded for ${analysis.filename}`);
+  const saveAnalysis = () => {
+    // Instead of generating and downloading a text report, update homepage snapshot cards.
+    const timestamp = new Date().toLocaleString();
+    const analysis = {
+      timestamp,
+      filename: videoFile?.name || "Unknown",
+      ...stats
     };
+
+    // Compute simple snapshot metrics for the homepage cards
+    const shots = analysis.shots || 0;
+    const passes = analysis.passes || 0;
+    const scores = analysis.scores || 0;
+
+    // Save "shotsMade" as actual scored baskets (scores) rather than noisy detected attempts.
+    // Compute accuracy based on scored baskets over (scores + passes) as an estimate of successful attempts.
+    const shotsMade = scores;
+    const denom = Math.max(1, scores + passes);
+    const accuracy = Math.round((scores / denom) * 100);
+
+    // Gentle technique / overall formulas that reflect scored outcomes more than noisy attempt counts
+    const techniqueScore = Math.min(10, Math.max(0, (scores * 1.8) + (passes * 0.2)));
+    const overallRating = Math.min(100, Math.round(scores * 20 + passes * 5));
+
+    const snapshot = {
+      techniqueScore: Number(techniqueScore.toFixed(1)),
+      overallRating,
+      accuracy: `${accuracy}%`,
+      shotsMade: shotsMade
+    };
+
+    // Persist snapshot to localStorage so HomePage can read and display it
+    try {
+      localStorage.setItem('sportsifySnapshot', JSON.stringify(snapshot));
+      // Notify other parts of the app in the same tab that a new snapshot is available
+      try {
+        window.dispatchEvent(new CustomEvent('sportsify:snapshot-updated', { detail: snapshot }));
+      } catch (evErr) {
+        // older browsers may fail - ignore
+      }
+    } catch (e) {
+      console.warn('Failed to save snapshot to localStorage', e);
+    }
+
+    // Update analysis history (keep recent 5)
+    const updatedHistory = [analysis, ...analysisHistory.slice(0, 4)];
+    setAnalysisHistory(updatedHistory);
+    localStorage.setItem("sportsifyAnalysis", JSON.stringify(updatedHistory));
+
+    // Ensure UI state resets so the analyze button and Save button are ready for retry
+    setAnalyzing(false);
+    setDebugInfo(`✅ Snapshot updated on Home for ${analysis.filename}`);
+  };
 
   // Chart data
   const chartData = {

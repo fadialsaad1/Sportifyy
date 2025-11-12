@@ -1,5 +1,6 @@
-﻿import React, { useState, useEffect, useRef } from "react";
+ import React, { useState, useEffect, useRef } from "react";
 import BottomNavigation from "./BottomNavigation";
+import PositionDropdown from "./PositionDropdown";
 
 export default function ProfilePage({ currentPage, setCurrentPage }) {
     const [user, setUser] = useState(null);
@@ -9,21 +10,39 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
 
     // Load user info and AI analysis data
     useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem("userData"));
-        if (storedUser) {
-            const firstName = storedUser.name?.split(" ")[0] || storedUser.name;
-            setUser({ ...storedUser, firstName });
-        } else {
-            setCurrentPage("Sign in");
+        // ========== CHANGED: Added try-catch and default values ==========
+        try {
+            const storedUserData = localStorage.getItem("userData");
+            if (storedUserData) {
+                const storedUser = JSON.parse(storedUserData);
+                const firstName = storedUser.name?.split(" ")[0] || storedUser.name || "User";
+                // Ensure user has all required properties with defaults
+                const userWithDefaults = {
+                    name: "",
+                    firstName: "User",
+                    level: 1,
+                    badges: 0,
+                    favoriteSport: "Basketball",
+                    avatar: "/avatar.png",
+                    ...storedUser, // Spread existing user data
+                    firstName // Override firstName with calculated value
+                };
+                setUser(userWithDefaults);
+            } else {
+                setCurrentPage("Sign in");
+            }
+
+            const savedAnalysis = JSON.parse(localStorage.getItem("sportsifyAnalysis")) || [];
+            setAnalysisHistory(savedAnalysis);
+
+            const activityList = savedAnalysis.map(
+                entry => `✅ Analysis completed: ${entry.filename || "Unknown File"}`
+            );
+            setActivities(activityList);
+        } catch (error) {
+            console.error("Error loading profile data:", error);
         }
-
-        const savedAnalysis = JSON.parse(localStorage.getItem("sportsifyAnalysis")) || [];
-        setAnalysisHistory(savedAnalysis);
-
-        const activityList = savedAnalysis.map(
-            entry => `✅ Analysis completed: ${entry.filename}`
-        );
-        setActivities(activityList);
+        // ========== END OF CHANGES ==========
     }, [setCurrentPage]);
 
     // Avatar upload handler
@@ -33,9 +52,15 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
 
         const reader = new FileReader();
         reader.onloadend = () => {
-            const updatedUser = { ...user, avatar: reader.result };
-            setUser(updatedUser);
-            localStorage.setItem("userData", JSON.stringify(updatedUser));
+            // ========== CHANGED: Added try-catch ==========
+            try {
+                const updatedUser = { ...user, avatar: reader.result };
+                setUser(updatedUser);
+                localStorage.setItem("userData", JSON.stringify(updatedUser));
+            } catch (error) {
+                console.error("Error saving avatar:", error);
+            }
+            // ========== END OF CHANGES ==========
         };
         reader.readAsDataURL(file);
     };
@@ -46,9 +71,9 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
         let report = `
 🏀 Sportify Player Report
 ---------------------------
-Name: ${user.firstName}
-Level: ${user.level}
-Favorite Sport: ${user.favoriteSport}
+Name: ${user.firstName || "User"}
+Level: ${user.level || 1}
+Favorite Sport: ${user.favoriteSport || "Basketball"}
 Generated: ${new Date().toLocaleString()}
 
 🧠 AI Basketball Analysis History
@@ -59,9 +84,9 @@ Generated: ${new Date().toLocaleString()}
         } else {
             analysisHistory.forEach((entry, index) => {
                 report += `
-${index + 1}. File: ${entry.filename}
-   Timestamp: ${entry.timestamp}
-   Shots: ${entry.shots}, Passes: ${entry.passes}, Scores: ${entry.scores}
+${index + 1}. File: ${entry.filename || "Unknown"}
+   Timestamp: ${entry.timestamp || "Unknown"}
+   Shots: ${entry.shots || 0}, Passes: ${entry.passes || 0}, Scores: ${entry.scores || 0}
 `;
             });
         }
@@ -69,7 +94,7 @@ ${index + 1}. File: ${entry.filename}
         const blob = new Blob([report], { type: "text/plain" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = `${user.firstName}_Sportify_Report.txt`;
+        link.download = `${user.firstName || "Sportify"}_Report.txt`;
         link.click();
     };
 
@@ -80,7 +105,7 @@ ${index + 1}. File: ${entry.filename}
         <div
             style={{
                 minHeight: "100vh",
-                background: "linear-gradient(135deg, #0f4c75, #3282b8, #bbe1fa)",
+                background: "linear-gradient(135deg, #d5e2ebff, #fdfeffff, #cce4f5ff)",
                 paddingTop: "60px",
                 paddingBottom: "120px",
                 width: "100%",
@@ -93,7 +118,9 @@ ${index + 1}. File: ${entry.filename}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "30px" }}>
                 <div
                     style={{ position: "relative", width: "110px", height: "110px", cursor: "pointer" }}
-                    onClick={() => fileInputRef.current.click()}
+                    // ========== CHANGED: Added optional chaining ==========
+                    onClick={() => fileInputRef.current?.click()}
+                    // ========== END OF CHANGES ==========
                 >
                     <img
                         src={user.avatar || "/avatar.png"}
@@ -115,10 +142,10 @@ ${index + 1}. File: ${entry.filename}
                         onChange={handleAvatarChange}
                     />
                 </div>
-                <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#fff", marginTop: "12px" }}>
+                <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#000000ff", marginTop: "12px" }}>
                     {user.firstName}
                 </h2>
-                <p style={{ color: "#dbeafe", marginTop: "4px", fontWeight: 500 }}>
+                <p style={{ color: "#000", marginTop: "4px", fontWeight: 500 }}>
                     Level {user.level} - {user.favoriteSport?.toUpperCase() || "SPORT"} Fan
                 </p>
 
@@ -155,14 +182,18 @@ ${index + 1}. File: ${entry.filename}
                 boxShadow: "0 4px 15px rgba(0,0,0,0.15)"
             }}>
                 <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "18px", color: "#fff", fontWeight: "700" }}>{user.badges}</h3>
-                    <p style={{ fontSize: "14px", color: "#dbeafe" }}>Badges</p>
+                    <h3 style={{ fontSize: "18px", color: "#000", fontWeight: "700" }}>{user.badges}</h3>
+                    <p style={{ fontSize: "14px", color: "#000" }}>Badges</p>
                 </div>
                 <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "18px", color: "#fff", fontWeight: "700" }}>{activities.length}</h3>
-                    <p style={{ fontSize: "14px", color: "#dbeafe" }}>Activities</p>
+                    <h3 style={{ fontSize: "18px", color: "#000", fontWeight: "700" }}>{activities.length}</h3>
+                    <p style={{ fontSize: "14px", color: "#000" }}>Activities</p>
                 </div>
             </div>
+
+            {/* ========== NEW: Added PositionDropdown component ========== */}
+            <PositionDropdown />
+            {/* ========== END OF NEW ADDITION ========== */}
 
             {/* AI Analysis Section */}
             <div style={{
@@ -187,8 +218,10 @@ ${index + 1}. File: ${entry.filename}
                                 borderRadius: "12px",
                                 boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
                             }}>
-                                <strong>{entry.filename}</strong> — {entry.timestamp}<br />
-                                Shots: {entry.shots}, Passes: {entry.passes}, Scores: {entry.scores}
+                                {/* ========== CHANGED: Added default values ========== */}
+                                <strong>{entry.filename || "Unknown File"}</strong> — {entry.timestamp || "Unknown Time"}<br />
+                                Shots: {entry.shots || 0}, Passes: {entry.passes || 0}, Scores: {entry.scores || 0}
+                                {/* ========== END OF CHANGES ========== */}
                             </li>
                         ))}
                     </ul>

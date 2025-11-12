@@ -64,8 +64,8 @@ const BottomNavigation = ({ currentPage, setCurrentPage }) => {
             src={item.img} 
             alt={item.label} 
             style={{
-              width: '24px', 
-              height: '24px', 
+              width: item.label === 'Progress' ? '44px' : '24px', 
+              height: item.label === 'Progress' ? '28px' : '24px', 
               marginBottom: '4px'
             }} 
           />
