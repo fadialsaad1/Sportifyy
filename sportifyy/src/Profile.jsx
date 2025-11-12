@@ -80,7 +80,7 @@ ${index + 1}. File: ${entry.filename}
         <div
             style={{
                 minHeight: "100vh",
-                background: "linear-gradient(135deg, #0f4c75, #3282b8, #bbe1fa)",
+                background: "linear-gradient(135deg, #d5e2ebff, #fdfeffff, #cce4f5ff)",
                 paddingTop: "60px",
                 paddingBottom: "120px",
                 width: "100%",
@@ -115,10 +115,10 @@ ${index + 1}. File: ${entry.filename}
                         onChange={handleAvatarChange}
                     />
                 </div>
-                <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#fff", marginTop: "12px" }}>
+                <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#000000ff", marginTop: "12px" }}>
                     {user.firstName}
                 </h2>
-                <p style={{ color: "#dbeafe", marginTop: "4px", fontWeight: 500 }}>
+                <p style={{ color: "#000", marginTop: "4px", fontWeight: 500 }}>
                     Level {user.level} - {user.favoriteSport?.toUpperCase() || "SPORT"} Fan
                 </p>
 
@@ -155,12 +155,12 @@ ${index + 1}. File: ${entry.filename}
                 boxShadow: "0 4px 15px rgba(0,0,0,0.15)"
             }}>
                 <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "18px", color: "#fff", fontWeight: "700" }}>{user.badges}</h3>
-                    <p style={{ fontSize: "14px", color: "#dbeafe" }}>Badges</p>
+                    <h3 style={{ fontSize: "18px", color: "#000", fontWeight: "700" }}>{user.badges}</h3>
+                    <p style={{ fontSize: "14px", color: "#000" }}>Badges</p>
                 </div>
                 <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "18px", color: "#fff", fontWeight: "700" }}>{activities.length}</h3>
-                    <p style={{ fontSize: "14px", color: "#dbeafe" }}>Activities</p>
+                    <h3 style={{ fontSize: "18px", color: "#000", fontWeight: "700" }}>{activities.length}</h3>
+                    <p style={{ fontSize: "14px", color: "#000" }}>Activities</p>
                 </div>
             </div>
 

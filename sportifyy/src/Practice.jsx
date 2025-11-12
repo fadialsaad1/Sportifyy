@@ -15,7 +15,7 @@ export default function PracticePage({ currentPage, setCurrentPage }) {
     return (
         <div style={{
             minHeight: '100vh',
-            background: 'linear-gradient(135deg, #0f4c75, #3282b8, #bbe1fa)',
+            background: 'linear-gradient(135deg, #d5e2ebff, #fdfeffff, #cce4f5ff)',
             paddingTop: '60px',
             paddingBottom: '120px',
             width: '100%',
@@ -95,9 +95,9 @@ export default function PracticePage({ currentPage, setCurrentPage }) {
                         marginBottom: '24px'
                     }}
                 >
-                    {practiceResources.map((res, i) => (
+                    {practiceResources.map((res, idx) => (
                         <a
-                            key={i}
+                            key={idx}
                             href={res.url}
                             target="_blank"
                             rel="noopener noreferrer"
