@@ -1,110 +1,126 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-const PositionDropdown = () => {
-  const [position, setPosition] = useState('');
-  const [user, setUser] = useState(null);
+export default function PositionDropdown() {
+    const [position, setPosition] = useState("");
+    const [user, setUser] = useState(null);
 
-  const positions = [
-    { value: 'Point Guard', tips: 'Focus on court vision, passing, and ball handling. Work on your decision-making and leadership skills.' },
-    { value: 'Shooting Guard', tips: 'Develop your shooting accuracy and off-ball movement. Work on creating your own shot opportunities.' },
-    { value: 'Small Forward', tips: 'Build versatility in scoring and defense. Work on driving to the basket and perimeter defense.' },
-    { value: 'Power Forward', tips: 'Focus on rebounding, post moves, and mid-range shooting. Develop your physicality inside.' },
-    { value: 'Center', tips: 'Work on rim protection, rebounding, and post scoring. Develop your footwork and defensive positioning.' }
-  ];
+    const positions = [
+        { value: "Point Guard", tips: "Focus on court vision, passing, and ball-handling. Improve decision-making and leadership." },
+        { value: "Shooting Guard", tips: "Develop shooting accuracy, off-ball movement, and learn to create your own shot." },
+        { value: "Small Forward", tips: "Become versatile—strong driving, perimeter defense, and all-around scoring." },
+        { value: "Power Forward", tips: "Work on rebounding, post moves, strength, and mid-range consistency." },
+        { value: "Center", tips: "Focus on rim protection, footwork, rebounding, and post scoring." }
+    ];
 
-  useEffect(() => {
-    // Load user data from localStorage
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-      const parsedUser = JSON.parse(userData);
-      setUser(parsedUser);
-      if (parsedUser.basketballPosition) {
-        setPosition(parsedUser.basketballPosition);
-      }
-    }
-  }, []);
+    useEffect(() => {
+        const userData = localStorage.getItem("userData");
+        if (userData) {
+            const parsed = JSON.parse(userData);
+            setUser(parsed);
+            if (parsed.basketballPosition) {
+                setPosition(parsed.basketballPosition);
+            }
+        }
+    }, []);
 
-  const handleChange = (e) => {
-    const newPosition = e.target.value;
-    setPosition(newPosition);
-    
-    // Update user data in localStorage
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-      const parsedUser = JSON.parse(userData);
-      const updatedUser = {
-        ...parsedUser,
-        basketballPosition: newPosition
-      };
-      localStorage.setItem('userData', JSON.stringify(updatedUser));
-      setUser(updatedUser);
-    }
-  };
+    const handleChange = (e) => {
+        const newPosition = e.target.value;
+        setPosition(newPosition);
 
-  const getPositionTips = () => {
-    const positionObj = positions.find(pos => pos.value === position);
-    return positionObj ? positionObj.tips : '';
-  };
+        const raw = localStorage.getItem("userData");
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            const updated = { ...parsed, basketballPosition: newPosition };
+            localStorage.setItem("userData", JSON.stringify(updated));
+            setUser(updated);
+        }
+    };
 
-  if (!user) return null;
+    const getTips = () => {
+        const item = positions.find(p => p.value === position);
+        return item ? item.tips : "";
+    };
 
-  return (
-    <div style={{ 
-      margin: '15px 0', 
-      padding: '20px',
-      background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
-      borderRadius: '16px',
-      color: 'white'
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
-        <span style={{ fontSize: '24px', marginRight: '10px' }}>🏀</span>
-        <div>
-          <label style={{ display: 'block', fontWeight: 'bold', fontSize: '16px' }}>
-            Basketball Position
-          </label>
-          {position && (
-            <span style={{ fontSize: '12px', opacity: '0.9' }}>
-              Current: <strong>{position}</strong>
-            </span>
-          )}
+    if (!user) return null;
+
+    return (
+        <div
+            style={{
+                margin: "20px",
+                padding: "22px",
+                backgroundColor: "#ffffff",
+                borderRadius: "20px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                fontFamily: "'Poppins', sans-serif"
+            }}
+        >
+            {/* Header */}
+            <div style={{ display: "flex", alignItems: "center", marginBottom: "16px" }}>
+                <span style={{ fontSize: "26px", marginRight: "12px" }}>🏀</span>
+                <div>
+                    <h3 style={{ margin: 0, fontSize: "18px", fontWeight: "700", color: "#1e293b" }}>
+                        Basketball Position
+                    </h3>
+                    {position && (
+                        <span style={{ fontSize: "13px", color: "#64748b" }}>
+                            Current: <strong>{position}</strong>
+                        </span>
+                    )}
+                </div>
+            </div>
+
+            {/* Dropdown */}
+            <select
+                value={position}
+                onChange={handleChange}
+                style={{
+                    width: "100%",
+                    padding: "14px",
+                    borderRadius: "14px",
+                    border: "1px solid #cbd5e1",
+                    backgroundColor: "#f8fafc",
+                    fontSize: "14px",
+                    color: "#1e293b",
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+                    transition: "0.2s",
+                }}
+                onFocus={(e) => (e.target.style.border = "1px solid #2563eb")}
+                onBlur={(e) => (e.target.style.border = "1px solid #cbd5e1")}
+            >
+                <option value="">Select Your Position</option>
+                {positions.map((pos) => (
+                    <option key={pos.value} value={pos.value}>
+                        {pos.value}
+                    </option>
+                ))}
+            </select>
+
+            {/* Tips Box */}
+            {position && getTips() && (
+                <div
+                    style={{
+                        marginTop: "18px",
+                        padding: "14px",
+                        backgroundColor: "#f1f5f9",
+                        borderRadius: "12px",
+                        borderLeft: "4px solid #2563eb",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+                    }}
+                >
+                    <p
+                        style={{
+                            margin: 0,
+                            fontSize: "13px",
+                            color: "#334155",
+                            lineHeight: "1.5"
+                        }}
+                    >
+                        💡 <strong>Tips for {position}:</strong> {getTips()}
+                    </p>
+                </div>
+            )}
         </div>
-      </div>
-      
-      <select 
-        value={position} 
-        onChange={handleChange}
-        style={{ 
-          padding: '12px', 
-          borderRadius: '8px', 
-          border: '2px solid rgba(255,255,255,0.3)',
-          backgroundColor: 'rgba(255,255,255,0.1)',
-          color: 'white',
-          width: '100%',
-          fontSize: '14px',
-          marginBottom: '10px'
-        }}
-      >
-        <option value="">Select Your Position</option>
-        {positions.map(pos => (
-          <option key={pos.value} value={pos.value}>{pos.value}</option>
-        ))}
-      </select>
-      
-      {position && getPositionTips() && (
-        <div style={{
-          marginTop: '12px',
-          padding: '12px',
-          backgroundColor: 'rgba(255,255,255,0.1)',
-          borderRadius: '8px',
-          borderLeft: '3px solid #ff6b6b'
-        }}>
-          <p style={{ margin: 0, fontSize: '12px', lineHeight: '1.4', fontStyle: 'italic' }}>
-            💡 <strong>Tips for {position}:</strong> {getPositionTips()}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default PositionDropdown;
+    );
+}
