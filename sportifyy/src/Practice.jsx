@@ -3,6 +3,24 @@ import BottomNavigation from "./BottomNavigation";
 import { motion } from "framer-motion";
 
 export default function PracticePage({ currentPage, setCurrentPage }) {
+
+    function getYouTubeID(url) {
+        try {
+            const urlObj = new URL(url);
+
+            // Handles youtu.be links
+            if (urlObj.hostname === "youtu.be") {
+                return urlObj.pathname.substring(1);
+            }
+
+            // Handles normal youtube.com/watch?v=XXX
+            return urlObj.searchParams.get("v");
+        } catch {
+            return null;
+        }
+    }
+
+
     const practiceResources = [
         { title: "This 5 Minute DRIBBLING WORKOUT Changes Your Game FOREVER 🤯", url: "https://www.youtube.com/watch?v=oADaM2L1YLc", description: "Dribbling drills to improve ball handling and control." },
         { title: "🏀 Basketball Passing Drills", url: "https://www.youtube.com/watch?v=dmXPryj71Eg", description: "Learn chest, bounce, and overhead passes with drills." },
@@ -84,53 +102,65 @@ export default function PracticePage({ currentPage, setCurrentPage }) {
                 </div>
 
                 {/* Practice Video Cards */}
+                {/* Practice Video Cards */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                         gap: '20px',
                         marginBottom: '24px'
                     }}
+
+
                 >
-                    {practiceResources.map((res, idx) => (
-                        <a
-                            key={idx}
-                            href={res.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                backgroundColor: 'white',
-                                borderRadius: '16px',
-                                padding: '16px',
-                                color: '#1e293b',
-                                boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
-                                textDecoration: 'none',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'space-between',
-                                transition: 'transform 0.2s, box-shadow 0.2s',
-                            }}
-                            onMouseEnter={e => {
-                                e.currentTarget.style.transform = 'translateY(-4px)';
-                                e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
-                            }}
-                            onMouseLeave={e => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
-                            }}
-                        >
-                            <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px' }}>
-                                {res.title}
-                            </h3>
-                            <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.5' }}>
-                                {res.description}
-                            </p>
-                        </a>
-                    ))}
+
+
+                    {practiceResources.map((res, idx) => {
+                        const videoId = getYouTubeID(res.url);
+
+                        return (
+                            <div
+                                key={idx}
+                                style={{
+                                    backgroundColor: 'white',
+                                    borderRadius: '16px',
+                                    padding: '16px',
+                                    color: '#1e293b',
+                                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '12px'
+                                }}
+                            >
+                                <h3 style={{ fontSize: '16px', fontWeight: '700' }}>
+                                    {res.title}
+                                </h3>
+
+                                <p style={{ fontSize: '14px', color: '#64748b' }}>
+                                    {res.description}
+                                </p>
+
+                                {/* ⬇️ The iframe goes here */}
+                                {videoId ? (
+                                    <iframe
+                                        width="100%"
+                                        height="180"
+                                        style={{ borderRadius: '12px', border: 'none' }}
+                                        src={`https://www.youtube.com/embed/${videoId}`}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                ) : (
+                                    <p style={{ color: "red" }}>Invalid YouTube URL</p>
+                                )}
+                            </div>
+                        );
+                    })}
                 </motion.div>
+
 
                 {/* Placeholder for Saved Sessions */}
                 <div style={{

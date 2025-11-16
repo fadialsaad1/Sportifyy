@@ -1,6 +1,7 @@
- import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import BottomNavigation from "./BottomNavigation";
 import PositionDropdown from "./PositionDropdown";
+import CirclePercentageChart from "./CirclePercentageChart";
 
 export default function ProfilePage({ currentPage, setCurrentPage }) {
     const [user, setUser] = useState(null);
@@ -8,15 +9,13 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
     const [activities, setActivities] = useState([]);
     const fileInputRef = useRef(null);
 
-    // Load user info and AI analysis data
     useEffect(() => {
-        // ========== CHANGED: Added try-catch and default values ==========
         try {
             const storedUserData = localStorage.getItem("userData");
             if (storedUserData) {
                 const storedUser = JSON.parse(storedUserData);
                 const firstName = storedUser.name?.split(" ")[0] || storedUser.name || "User";
-                // Ensure user has all required properties with defaults
+
                 const userWithDefaults = {
                     name: "",
                     firstName: "User",
@@ -24,8 +23,8 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                     badges: 0,
                     favoriteSport: "Basketball",
                     avatar: "/avatar.png",
-                    ...storedUser, // Spread existing user data
-                    firstName // Override firstName with calculated value
+                    ...storedUser,
+                    firstName,
                 };
                 setUser(userWithDefaults);
             } else {
@@ -39,20 +38,18 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
                 entry => `✅ Analysis completed: ${entry.filename || "Unknown File"}`
             );
             setActivities(activityList);
+
         } catch (error) {
             console.error("Error loading profile data:", error);
         }
-        // ========== END OF CHANGES ==========
     }, [setCurrentPage]);
 
-    // Avatar upload handler
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
         const reader = new FileReader();
         reader.onloadend = () => {
-            // ========== CHANGED: Added try-catch ==========
             try {
                 const updatedUser = { ...user, avatar: reader.result };
                 setUser(updatedUser);
@@ -60,7 +57,6 @@ export default function ProfilePage({ currentPage, setCurrentPage }) {
             } catch (error) {
                 console.error("Error saving avatar:", error);
             }
-            // ========== END OF CHANGES ==========
         };
         reader.readAsDataURL(file);
     };
@@ -101,6 +97,10 @@ ${index + 1}. File: ${entry.filename || "Unknown"}
     if (!user)
         return <p style={{ textAlign: "center", marginTop: "100px" }}>Loading...</p>;
 
+    // ⭐ NEW: Dynamic performance score
+    const totalActivities = activities.length;
+    const performanceScore = Math.min(100, Math.max(5, (totalActivities / 20) * 100));
+
     return (
         <div
             style={{
@@ -118,9 +118,7 @@ ${index + 1}. File: ${entry.filename || "Unknown"}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "30px" }}>
                 <div
                     style={{ position: "relative", width: "110px", height: "110px", cursor: "pointer" }}
-                    // ========== CHANGED: Added optional chaining ==========
                     onClick={() => fileInputRef.current?.click()}
-                    // ========== END OF CHANGES ==========
                 >
                     <img
                         src={user.avatar || "/avatar.png"}
@@ -142,11 +140,13 @@ ${index + 1}. File: ${entry.filename || "Unknown"}
                         onChange={handleAvatarChange}
                     />
                 </div>
+
                 <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#000000ff", marginTop: "12px" }}>
                     {user.firstName}
                 </h2>
+
                 <p style={{ color: "#000", marginTop: "4px", fontWeight: 500 }}>
-                    Level {user.level} - {user.favoriteSport?.toUpperCase() || "SPORT"} Fan
+                    Level {user.level} • {user.favoriteSport?.toUpperCase() || "SPORT"} Fan
                 </p>
 
                 <button
@@ -164,8 +164,6 @@ ${index + 1}. File: ${entry.filename || "Unknown"}
                         boxShadow: "0 6px 20px rgba(0,0,0,0.2)",
                         transition: "all 0.3s ease",
                     }}
-                    onMouseOver={e => e.currentTarget.style.transform = "translateY(-2px)"}
-                    onMouseOut={e => e.currentTarget.style.transform = "translateY(0)"}
                 >
                     📊 Download Most Recent Report
                 </button>
@@ -186,14 +184,34 @@ ${index + 1}. File: ${entry.filename || "Unknown"}
                     <p style={{ fontSize: "14px", color: "#000" }}>Badges</p>
                 </div>
                 <div style={{ textAlign: "center" }}>
-                    <h3 style={{ fontSize: "18px", color: "#000", fontWeight: "700" }}>{activities.length}</h3>
+                    <h3 style={{ fontSize: "18px", color: "#000", fontWeight: "700" }}>{totalActivities}</h3>
                     <p style={{ fontSize: "14px", color: "#000" }}>Activities</p>
                 </div>
             </div>
 
-            {/* ========== NEW: Added PositionDropdown component ========== */}
+            {/* ⭐ Performance Overview */}
+            <div style={{
+                backgroundColor: "#fff",
+                borderRadius: "20px",
+                padding: "25px",
+                margin: "20px",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                textAlign: "center"
+            }}>
+                <h3 style={{ fontSize: "18px", fontWeight: "700", color: "#1e293b", marginBottom: "20px" }}>
+                    Performance Overview
+                </h3>
+
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <CirclePercentageChart percentage={Math.round(performanceScore)} size={150} strokeWidth={12} />
+                </div>
+
+                <p style={{ marginTop: "12px", color: "#475569" }}>
+                    Based on your last {totalActivities} activities
+                </p>
+            </div>
+
             <PositionDropdown />
-            {/* ========== END OF NEW ADDITION ========== */}
 
             {/* AI Analysis Section */}
             <div style={{
@@ -218,10 +236,8 @@ ${index + 1}. File: ${entry.filename || "Unknown"}
                                 borderRadius: "12px",
                                 boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
                             }}>
-                                {/* ========== CHANGED: Added default values ========== */}
                                 <strong>{entry.filename || "Unknown File"}</strong> — {entry.timestamp || "Unknown Time"}<br />
                                 Shots: {entry.shots || 0}, Passes: {entry.passes || 0}, Scores: {entry.scores || 0}
-                                {/* ========== END OF CHANGES ========== */}
                             </li>
                         ))}
                     </ul>
