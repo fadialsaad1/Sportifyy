@@ -142,6 +142,12 @@ export default function UploadPage({ setCurrentPage }) {
             >
                 ← Back to Home
             </button>
+            {/* Video Preview at the bottom */}
+            {selectedFile && (
+                <div className="video-preview-bottom">
+                    <VideoPreview file={selectedFile} />
+                </div>
+            )}
         </div>
     );
 }
