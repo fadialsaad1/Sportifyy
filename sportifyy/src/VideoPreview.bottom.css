@@ -1,0 +1,14 @@
+/* VideoPreview positioning for UploadPage */
+.video-preview-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.08);
+  padding: 16px 0;
+}
