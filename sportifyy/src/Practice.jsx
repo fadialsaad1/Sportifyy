@@ -248,7 +248,7 @@ export default function PracticePage({ currentPage, setCurrentPage }) {
                     src="/plus_button_icon.png"
                     alt="Add"
                     style={{ width: '88px', height: '88px', cursor: 'pointer' }}
-                    onClick={() => setCurrentPage('Upload')}
+                    onClick={() => setCurrentPage('Basketball Analysis')}
                 />
             </div>
 

@@ -242,7 +242,7 @@ const BasketballAnalyzer = ({ setCurrentPage }) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
     
-    setDebugInfo('✅ Dev mode analysis complete! Pass 1 at 1s, Pass 2 at 3s, Score at 9s');
+    setDebugInfo('✅ Dev mode analysis complete! Pass 1 at 1s, Pass 2 at 3s, Score at 7s');
     setAnalyzing(false);
   };
 
@@ -828,6 +828,59 @@ const BasketballAnalyzer = ({ setCurrentPage }) => {
       console.warn('Failed to save snapshot to localStorage', e);
     }
 
+    // Also capture a representative video frame (current frame) and update frames store used by Progress comparison
+    try {
+      const video = videoRef.current;
+      let latestData = null;
+      if (video && video.readyState >= 2) {
+        const tmp = document.createElement('canvas');
+        tmp.width = video.videoWidth || 640;
+        tmp.height = video.videoHeight || 360;
+        const tctx = tmp.getContext('2d');
+        try {
+          tctx.drawImage(video, 0, 0, tmp.width, tmp.height);
+          latestData = tmp.toDataURL('image/png');
+        } catch (e) {
+          latestData = null;
+        }
+      }
+
+      const framesRaw = localStorage.getItem('sportsifyAnalysisFrames');
+      const framesArr = framesRaw ? JSON.parse(framesRaw) : [];
+
+      const timestampISO = new Date().toISOString();
+
+      // Find entry by filename, or append new
+      const existingIndex = framesArr.findIndex(f => f.filename === analysis.filename);
+      if (existingIndex >= 0) {
+        // update latestFrame and timestampISO
+        // If we just captured a frame and there is no earliestFrame recorded yet,
+        // use the current capture as the earliest so the comparison panel isn't empty.
+        if ((!framesArr[existingIndex].earliestFrame || framesArr[existingIndex].earliestFrame === null) && latestData) {
+          framesArr[existingIndex].earliestFrame = latestData;
+        }
+        framesArr[existingIndex].latestFrame = latestData || framesArr[existingIndex].latestFrame;
+        framesArr[existingIndex].timestampISO = timestampISO;
+      } else {
+        // create new entry: earliestFrame and latestFrame are the same initially
+        framesArr.push({
+          filename: analysis.filename,
+          earliestFrame: latestData || null,
+          latestFrame: latestData || null,
+          timestampISO
+        });
+      }
+
+      // Keep last 10
+      const trimmed = framesArr.slice(-10);
+      localStorage.setItem('sportsifyAnalysisFrames', JSON.stringify(trimmed));
+
+      // notify other tabs/components
+      try { window.dispatchEvent(new CustomEvent('sportsify:frames-updated', { detail: { filename: analysis.filename } })); } catch (e) {}
+    } catch (e) {
+      // ignore
+    }
+
     // Update analysis history (keep recent 5)
     const updatedHistory = [analysis, ...analysisHistory.slice(0, 4)];
     setAnalysisHistory(updatedHistory);
@@ -1005,6 +1058,8 @@ const BasketballAnalyzer = ({ setCurrentPage }) => {
               </div>
             </div>
           </div>
+
+          {/* Comparison moved to Progress page; inline compare upload removed */}
 
           <div className="controls" style={{ margin: '20px 0', textAlign: 'center' }}>
             <button 

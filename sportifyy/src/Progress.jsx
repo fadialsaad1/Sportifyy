@@ -1,5 +1,6 @@
 ﻿import React from "react";
 import BottomNavigation from "./BottomNavigation";
+import ComparisonPanel from "./ComparisonPanel";
 
 export default function ProgressPage({ currentPage, setCurrentPage }) {
     return (
@@ -29,7 +30,7 @@ export default function ProgressPage({ currentPage, setCurrentPage }) {
                     src="/plus_button_icon.png"
                     alt="Add"
                     style={{ width: '88px', height: '88px', cursor: 'pointer' }}
-                    onClick={() => setCurrentPage('Upload')}
+                    onClick={() => setCurrentPage('Basketball Analysis')}
                 />
             </div>
 
@@ -100,20 +101,9 @@ export default function ProgressPage({ currentPage, setCurrentPage }) {
                     ))}
                 </div>
 
-                {/* Charts Placeholder */}
-                <div style={{
-                    backgroundColor: 'white',
-                    borderRadius: '20px',
-                    padding: '24px',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-                    minHeight: '200px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <p style={{ color: '#94a3b8', fontSize: '16px' }}>
-                        Progress charts and analytics will be displayed here
-                    </p>
+                {/* Replace charts placeholder with Shot Comparison panel */}
+                <div style={{ width: '100%' }}>
+                    <ComparisonPanel />
                 </div>
             </div>
 

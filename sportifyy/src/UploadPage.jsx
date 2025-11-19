@@ -1,4 +1,5 @@
 ﻿import React, { useState } from "react";
+import VideoPreview from "./VideoPreview";
 
 export default function UploadPage({ setCurrentPage }) {
     const [selectedFile, setSelectedFile] = useState(null);

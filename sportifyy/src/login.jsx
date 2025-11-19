@@ -50,7 +50,7 @@ export default function LoginPage({ currentPage, setCurrentPage }) {
     return (
         <div style={{
             minHeight: '100vh',
-            background: 'linear-gradient(135deg, #0f4c75, #3282b8, #bbe1fa)',
+            background: '#f0f6fb',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
