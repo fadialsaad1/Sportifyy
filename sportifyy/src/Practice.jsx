@@ -271,7 +271,7 @@ export default function PracticePage({ currentPage, setCurrentPage }) {
                         fontSize: '24px',
                         fontWeight: '700',
                         marginLeft: '16px',
-                        color: '#fff'
+                        color: '#000000ff'
                     }}>Practice</h1>
                 </header>
 
