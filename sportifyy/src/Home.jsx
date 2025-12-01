@@ -227,7 +227,7 @@ export default function HomePage({ currentPage, setCurrentPage }) {
                 ))}
             </div>
 
-            {/* Last Practice */}
+            {/* Last Practice  */}
             <div style={{
                 backgroundColor: "#fff",
                 borderRadius: "20px",
